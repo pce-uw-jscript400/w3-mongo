@@ -1,51 +1,50 @@
 const router = require('express').Router()
-const { generate: generateId } = require('shortid')
+const Series = require('../models/series')
 
-const series = [{
-  id: "j9U3iNIQi",
-  name: "Buffy the Vampire Slayer"
-}];
+const publicKeys = '_id title start_year season_count characters'
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   const status = 200
-  const response = series
-  
+  const response = await Series.find(req.query).select(publicKeys)  
   res.json({ status, response })
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const status = 201
-  
-  series.push({ id: generateId(), ...req.body })
-  const response = series
+  try {
+    const series = await Series.create(req.body)
+    const response = await Series.findById(series._id).select(publicKeys)
+
+    res.json({ status, response })  
+  } catch (error) {
+    error.status = 400
+    error.message = 'Invalid data. Please check your POST body and try again.'
+    
+    next(error)
+  }
+})
+
+router.get('/:id', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findById(req.params.id).select(publicKeys)
+
+  res.json({ status, response })
+})
+
+router.put('/:id', async (req, res, next) => {
+  const status = 200
+  const query = { _id: req.params.id }
+  const options = { new: true }
+  const response = await Series.findOneAndUpdate(query, req.body, options).select(publicKeys)
   
   res.json({ status, response })
 })
 
-router.get('/:id', (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-
-  res.json({ status, response })
-})
-
-router.put('/:id', (req, res, next) => {
-  const status = 200
-  const response = { id: req.params.id, ...req.body }
-  const single = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(single)
-
-  series.splice(index, 1, response)
   
-  res.json({ status, response })
-})
-
-router.delete('/:id', (req, res, next) => {
-  const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(response)
-
-  series.splice(index, 1)
+  const query = { _id: req.params.id }
+  const response = await Series.findOneAndDelete(query, req.body).select(publicKeys)
 
   res.json({ status, response })
 })
