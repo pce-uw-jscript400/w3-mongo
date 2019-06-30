@@ -63,11 +63,19 @@ Once installation is working, try creating and requesting resources. Note that t
 - [ ] Merge the following into your schema:
   ```js
   {
-    id: Schema.Types.ObjectId
+    _id: Schema.Types.ObjectId
   }
   ```
 
 * **Question:** Describe what the above code is adding to your schema.
+
+* **Your Answer:**
+
+---
+
+- [ ] Remove the line we just added from your schema.
+
+* **Question:** If we create a new document, will there be an ID? Why or why not?
 
 * **Your Answer:**
 
