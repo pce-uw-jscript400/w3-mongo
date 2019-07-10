@@ -77,7 +77,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:**  Yes, it is auto generated.
 
 ---
 
@@ -90,7 +90,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:**  
 
 ---
 
