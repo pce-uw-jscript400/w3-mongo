@@ -40,7 +40,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
+* **Your Answer:** mongodb is the actual database, whereas mongoose is a package for writing/reading to a database and methods for manipulating its content. 
 
 ---
 
@@ -48,7 +48,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** A database holds the entirety of the documents stored in the cluster. Collections are groupings of document entries. Per the documentation, akin to a classical SQL database table. A document is a single entry in the database. 
 
 ---
 
@@ -56,7 +56,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:** Those come from the String and Number constructor functions. 
 
 ---
 
@@ -69,7 +69,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** It is adding a unique global identifier. 
 
 ---
 
@@ -90,7 +90,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** it is adding timestamps to your document with keys matching the snake casing used in the rest of the model. 
 
 ---
 
