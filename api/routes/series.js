@@ -9,15 +9,11 @@ const series = [{
   name: "Buffy the Vampire Slayer"
 }];
 
+//GET - Route
 router.get('/', async (req, res, next) => {
   const status = 200
   // const response = series
 
-  const { title, start_year, season_count } = req.query
-
-  console.log("TITLE: "+title)
-  console.log("START_YEAR: "+start_year)
-  console.log("SEASON_COUNT: "+season_count)
  //  try {
  //    const status = 200
  //    const response = await Series.find()
@@ -30,7 +26,7 @@ router.get('/', async (req, res, next) => {
  //  }
 //.select('title start_year  season_count -_id')
 //.select('title start_year  season_count -_id')
-  Series.find({...req.query}).select('title start_year season_count characters')
+  Series.find({...req.query}).select('title start_year season_count characters') //Promise
   .then((response) => {
     const status = 200
     res.status(status).json({ status, response })
@@ -47,7 +43,7 @@ router.get('/', async (req, res, next) => {
 
 
 
-
+// POST - Route
 router.post('/', helper.validate, async (req, res, next) => {
   const status = 201
 
@@ -76,6 +72,7 @@ router.post('/', helper.validate, async (req, res, next) => {
 
   // const { title, start_year, season_count }  = req.body
 
+  //Promise
   Series.create(req.body)
   .then(response => {
     res.json(response)
@@ -92,6 +89,7 @@ router.post('/', helper.validate, async (req, res, next) => {
 
 })
 
+//GET - Specific Document ID Route
 router.get('/:id', (req, res, next) => {
   const status = 200
   // const { id } = req.params
@@ -111,12 +109,15 @@ router.get('/:id', (req, res, next) => {
   // res.json({ status, response })
 })
 
+
+//PUT - Route
 router.put('/:id', (req, res, next) => {
   const status = 200
   const response = { id: req.params.id, ...req.body }
   // const single = series.find(({ id }) => id === req.params.id)
   // const index = series.indexOf(single)
 
+  //Promise
   Series.findOneAndUpdate({ _id: req.params.id}, {...req.body}, {new:true})
   // Series.updateOne({ _id: req.params.id}, {title: req.body.title})
   .then((response) => {
@@ -131,6 +132,8 @@ router.put('/:id', (req, res, next) => {
   // res.json({ status, response })
 })
 
+
+//DELETE - Route
 router.delete('/:id', (req, res, next) => {
   const status = 200
   // const response = series.find(({ id }) => id === req.params.id)
@@ -140,6 +143,7 @@ router.delete('/:id', (req, res, next) => {
 
   // res.json({ status, response })
 
+  //Promise
   Series.findOneAndDelete({_id: req.params.id})
   .then(response => {
     res.json(response)
@@ -152,14 +156,14 @@ router.delete('/:id', (req, res, next) => {
 
 
 
-
+//GET - Specific Series Character Routes
 router.get('/:seriesID/characters', (req, res, next) => {
   const status = 200
   // const { id } = req.params
   // const response = series.find(({ id }) => id === req.params.id)
 
   // Series.findById(req.params.id)
-  Series.find({_id : req.params.seriesID}).select('characters._id characters.name characters.actor -_id')
+  Series.find({_id : req.params.seriesID}).select('characters._id characters.name characters.actor -_id')//Promise
   .then(response => {
     res.json(response)
   })
