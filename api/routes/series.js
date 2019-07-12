@@ -65,5 +65,28 @@ router.get('/:id/characters', async (req, res, next) => {
   const characters = response.characters; 
   res.json({ status, characters })
 })
+router.post('/:id/characters', async (req, res, next) => {
+  const status = 201
+  const response = await Series.findById(req.params.id)
 
+})
+router.put('/:id/characters', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findOneAndUpdate({
+    _id: req.params.id
+  },{
+    ...req.body.characters
+  }, {
+    new: true
+  })
+  res.json({ status, response })
+})
+
+router.delete('/characters/:CharacterId', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findOneAndDelete({
+    _id: req.params.id
+  })
+  res.json({ status, response })
+})
 module.exports = router

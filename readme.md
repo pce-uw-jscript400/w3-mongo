@@ -40,7 +40,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:** mongodb is the actual database, whereas mongoose is a package for writing/reading to a database and methods for manipulating its content. 
+* **Your Answer:** mongodb is the actual database and supporting application, whereas mongoose is a package for interacting with the database application with methods for manipulating its content. 
 
 ---
 
@@ -69,7 +69,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:** It is adding a unique global identifier. 
+* **Your Answer:** It is adding a unique global identifier field that would need to be defined on creation. 
 
 ---
 
@@ -77,7 +77,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:** Yes. Every new instantiation of a new document entry will auto-generate an ID. 
+* **Your Answer:** Yes. Every instantiation of a new document entry will auto-generate an ID. 
 
 ---
 
@@ -118,7 +118,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
-* **Your Answer:** `.findById`
+* **Your Answer:** `.findById()`
 
 ---
 
@@ -146,7 +146,7 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:** By setting this flag to false you are telling mongoose to use MongoDB's findOneAndUpdate() function rather than its findAndModify() function as there is a function name collision between Mongo and Mongoose.
+* **Your Answer:** By setting the `useFindAndModify` flag to false you are telling mongoose to use MongoDB's findOneAndUpdate() function rather than its findAndModify() function as there is a function name collision between Mongo and Mongoose.
 
 ---
 
@@ -158,7 +158,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** Create throws an error. If this should be applied to all queries in the scheme, the select property should be set in the schema model itself. 
+* **Your Answer:** Create throws an error. Create returns a Promise and the `.select()` function can only be applied to queries. To avoid errors or accidental inclusion/exclusion of fields, it seems that the select property should be set in the schema model itself and not applied at the route query. 
 
 ---
 
