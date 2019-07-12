@@ -7,8 +7,28 @@ const seriesSchema = new Schema({
     required: true,
     
   },
-  start_year: Number,
-  season_count: Number
+  start_year: {
+    type: Number,
+    isAsync: true,
+    validate: {
+      validator: (input) => {
+        return input.toString().length == 4;
+      },
+      msg: `start_year must be a 4 digit number`
+    }
+  },
+  season_count: Number,
+  characters: [
+    {
+      name: {
+        type: String,
+        required: true
+      },
+      image_url: {
+        type: String
+      }
+    }
+  ]
 },
 {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

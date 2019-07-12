@@ -9,10 +9,14 @@ const series = [{
 
 router.get('/', async (req, res, next) => {
   const status = 200
+  let response
   if (req.query) {
-    // some code...
+    // Only accepts exact matches currently
+    response = await Series.find(req.query)
+  } else {
+    response = await Series.find()
   }
-  const response = await Series.find()
+  
   
   res.json({ status, response })
 })
@@ -20,11 +24,13 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const status = 201
   
-  const response = await Series.create(req.body).then(response =>{
-
-  })
-  
-  res.json({ status, response })
+  const response = await Series.create(req.body)
+    .then(response => {
+      res.json({ status, response })
+    })
+    .catch(err => {
+      res.json(err.message)
+    })
 })
 
 router.get('/:id', async (req, res, next) => {
@@ -51,6 +57,13 @@ router.delete('/:id', async (req, res, next) => {
     _id: req.params.id
   })
   res.json({ status, response })
+})
+
+router.get('/:id/characters', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findById(req.params.id)
+  const characters = response.characters; 
+  res.json({ status, characters })
 })
 
 module.exports = router
