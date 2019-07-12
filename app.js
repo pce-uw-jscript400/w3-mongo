@@ -5,7 +5,10 @@ const app = express()
 
 // Database Connection
 if (MONGO_DB_CONNECTION) {
-  mongoose.connect(MONGO_DB_CONNECTION, { useNewUrlParser: true })
+  mongoose.connect(MONGO_DB_CONNECTION, {
+    useNewUrlParser: true,
+    useFindAndModify:false //get rid of the deprecation warnings in the console
+  })
   console.log('Connected to database...')
 } else {
   console.log('Could not connect to database!')
