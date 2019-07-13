@@ -4,15 +4,15 @@ By the end of this lesson, you should be able to connect to a non-relational dat
 
 ## Core Learning Objective
 
-*	Interact with a document database
+- Interact with a document database
 
 ## Sub-Objectives
 
-* Connect to a MongoDB database with Mongoose
-* Perform basic CRUD operations on the database
-* Build and run specific queries
-* Validate schemas
-* Model complex application ideas using embedded data models
+- Connect to a MongoDB database with Mongoose
+- Perform basic CRUD operations on the database
+- Build and run specific queries
+- Validate schemas
+- Model complex application ideas using embedded data models
 
 ## Installation
 
@@ -42,7 +42,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## mongodb is actual no-SQL database that we can store and retrieve our data to/from it and mongoose is just a library and tool that we use which makes communication with database much easier.
 
 - [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
 
@@ -50,7 +50,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## Database holds the collection of documents.
+
+## Collection is the group of individual documents.
+
+## Document is a javascript object which holds bunch of key:value pairs.
 
 - [ ] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
 
@@ -58,12 +62,12 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## Number and String both are javascripts class and mongoose using the same thing to define the type of the property inside out model.
 
 - [ ] Merge the following into your schema:
   ```js
   {
-    _id: Schema.Types.ObjectId
+    _id: Schema.Types.ObjectId;
   }
   ```
 
@@ -71,7 +75,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## It's a primary key for each document and mongoose automatically generates it for each document entry.
 
 - [ ] Remove the line we just added from your schema.
 
@@ -79,7 +83,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## we don't need necessarily have it because mongoose automatically will create for each document.
 
 - [ ] Add the following object as the _second argument_ to the `new Schema()` statement.
   ```js
@@ -92,7 +96,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## Just remapped createdAt: 'created_at', updatedAt: 'updated_at' to the conventional way and also we add two properties to our model
 
 - [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
 
@@ -100,15 +104,13 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## model.find()
 
 - [ ] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
 * **Your Answer:**
-
----
 
 - [ ] Take a moment to view your new document in the MongoDB Atlas console.
 
@@ -141,9 +143,11 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Your Answer:**
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
+
   ```
   DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated. See: https://mongoosejs.com/docs/deprecations.html#-findandmodify-
   ```
+
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
 * **Your Answer:**
@@ -154,11 +158,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 ---
 
-- [ ] A lot of information is being returned on each request. Some of this information we may want to keep private. Using the [.select()](https://mongoosejs.com/docs/api.html#query_Query-select) method, return only the "_id", "title", "start_year", and "season_count" on all the above requests.
+- [ ] A lot of information is being returned on each request. Some of this information we may want to keep private. Using the [.select()](https://mongoosejs.com/docs/api.html#query_Query-select) method, return only the "\_id", "title", "start_year", and "season_count" on all the above requests.
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:**
 
 ---
 
@@ -199,14 +203,13 @@ Once installation is working, try creating and requesting resources. Note that t
 
 Spend the rest of class building out the other routes for characters. A few notes to help:
 
-* It's worth reading the [subdocument](https://mongoosejs.com/docs/subdocs.html) documentation in full
-* Take note of the `.id()` method for finding subdocuments by id
-* Note that in order to save subdocuments, you will need to save the parent record; in our case, you should be calling `series.save()`, _not_ `character.save()`
-
+- It's worth reading the [subdocument](https://mongoosejs.com/docs/subdocs.html) documentation in full
+- Take note of the `.id()` method for finding subdocuments by id
+- Note that in order to save subdocuments, you will need to save the parent record; in our case, you should be calling `series.save()`, _not_ `character.save()`
 
 If you're interested in going further, I would recommend looking into [references](https://mongoosejs.com/docs/populate.html).
 
 ## Resources
 
-* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-* [Mongoose](https://mongoosejs.com/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- [Mongoose](https://mongoosejs.com/)
