@@ -41,6 +41,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What is the difference between mongoose and mongodb?
 
 * **Your Answer:**
+Mongo DB is a document based, cloud based database. mongoose is a is an object relational mapper which is the interface used to work with Mongo DB.
 
 ---
 
@@ -49,6 +50,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
 * **Your Answer:**
+A database is a digitial collection of data. In mongo DB it holds the collections and the documents. Collections are simimlar to tables.  Documents are stored in collections and are a representation of one enitity.
 
 ---
 
@@ -57,6 +59,8 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where does `String` and `Number` come from?
 
 * **Your Answer:**
+They are from JavaScript.
+
 
 ---
 
@@ -70,6 +74,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
+It grabs the primary key.
 
 ---
 
@@ -78,6 +83,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
 * **Your Answer:**
+Yes there in an ID, it is created by default and adds an id for us.
 
 ---
 
@@ -91,6 +97,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
+The timestamps are holding when the record or is updated. With the key value pairs we are remapping to a differnt case more suitiable for the database.
 
 ---
 
@@ -99,7 +106,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What method do you use to return all documents from a collection?
 
 * **Your Answer:**
-
+series.find()
 ---
 
 - [ ] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
@@ -107,6 +114,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
 * **Your Answer:**
+You will get an error telling you that you will need to define them both.
 
 ---
 
@@ -119,6 +127,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
 * **Your Answer:**
+const response =  await Series.findById(req.params.id)
 
 ---
 
@@ -127,18 +136,28 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What are the arguments for `Model.updateOne()`?
 
 * **Your Answer:**
+Filter - The selection criteria.
+Update - Your modifications
+Options - What else you may want to include
+
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
 * **Your Answer:**
+It added the placeholder text that we has added in title.
+
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
 * **Your Answer:**
+You add add the option {new: true}
+
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
 * **Your Answer:**
+Our Update at changed along with adding the new title.
+
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -147,7 +166,7 @@ Once installation is working, try creating and requesting resources. Note that t
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
 * **Your Answer:**
-
+I actually did not get the depriccation error, but to fix you update the mongoose.connect with:useFindAndModify: false. I added it just in case!
 ---
 
 - [ ] Update the API so that you can successfully delete a record. Use the [Model.findOneAndDelete()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete) method.
@@ -158,7 +177,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:**
+I actually did not get an error.
 
 ---
 
@@ -171,6 +191,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
 * **Your Answer:**
+You could use the message data to give the user more data on the error.
 
 ---
 
@@ -180,10 +201,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
 * **Your Answer:**
-
+It created an id
 ---
 
 - [ ] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
@@ -194,7 +216,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where did you decide to put this route and why?
 
 * **Your Answer:**
-
+I put it after the route calling the id so that it would vbe in order. 
 ---
 
 Spend the rest of class building out the other routes for characters. A few notes to help:
