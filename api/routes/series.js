@@ -37,6 +37,16 @@ router.post('/', async (req, res, next) => {
    //});
 })
 
+router.post('/:id/characters', async (req, res, next) =>{
+  const status = 200
+  const parent= await Series.findOne({_id: req.params.id})
+  const newChild= parent.characters.push(req.body)
+  newChild.isNew;
+  parent.save();
+  const response =  parent.characters
+  res.json({ status, response })
+})
+
 router.get('/:id', async (req, res, next) => {
   const status = 200
   const id = req.params.id;
@@ -70,6 +80,18 @@ router.get('/:id/characters/:subid', async(req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   const status = 200
   const response = await Series.findOneAndDelete({ _id: req.params.id })
+  res.json({ status, response })
+})
+
+router.delete('/:id/characters/:subid', async(req, res, next) => {
+  const status = 200
+  const id = req.params.id
+  const subid = req.params.subid
+  const parent= await Series.findOne({_id: id})
+  const child = parent.characters.id(subid)
+  child.remove()
+  parent.save()
+  response = parent.characters
   res.json({ status, response })
 })
 
