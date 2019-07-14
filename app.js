@@ -5,7 +5,8 @@ const app = express()
 
 // Database Connection
 if (MONGO_DB_CONNECTION) {
-  mongoose.connect(MONGO_DB_CONNECTION, { useNewUrlParser: true })
+  // env variables set by nodemon.json
+  mongoose.connect(MONGO_DB_CONNECTION, { useNewUrlParser: true, useFindAndModify: false })
   console.log('Connected to database...')
 } else {
   console.log('Could not connect to database!')

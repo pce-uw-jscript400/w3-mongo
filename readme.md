@@ -32,35 +32,35 @@ Once installation is working, try creating and requesting resources. Note that t
 
 ### Instructions & Guiding Questions
 
-- [ ] Take a moment to look through the code that already exists in this repository. Run the code and test out each route, ensuring it does what you expect.
+- [x] Take a moment to look through the code that already exists in this repository. Run the code and test out each route, ensuring it does what you expect.
 
 ---
 
-- [ ] We will be using both [mongoose](https://mongoosejs.com/docs/guide.html) and [mongodb](https://docs.mongodb.com/manual/) to build this project. Open up each project's documentation.
+- [x] We will be using both [mongoose](https://mongoosejs.com/docs/guide.html) and [mongodb](https://docs.mongodb.com/manual/) to build this project. Open up each project's documentation.
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
+* **Your Answer:** MongoDB is the actual database. Mongoose is the interface for communicating to the database, it helps format the requests sent to the database. Mongoose is more class oriented and more like javascript.
 
 ---
 
-- [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
+- [x] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** Databases store collections of documents. Documents are stored in collections (similar to tables). A document is one record - it is a representation of an entity.
 
 ---
 
-- [ ] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
+- [x] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:** They are from Javascript.
 
 ---
 
-- [ ] Merge the following into your schema:
+- [x] Merge the following into your schema:
   ```js
   {
     _id: Schema.Types.ObjectId
@@ -69,19 +69,19 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** It is defining the primary key. By default a primary id will be created.
 
 ---
 
-- [ ] Remove the line we just added from your schema.
+- [x] Remove the line we just added from your schema.
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:** Yes there will be an ID because that is the default behavior.
 
 ---
 
-- [ ] Add the following object as the _second argument_ to the `new Schema()` statement.
+- [x] Add the following object as the _second argument_ to the `new Schema()` statement.
   ```js
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
@@ -90,55 +90,55 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** It will add the timestamp at which the record was created and last time it was updated.
 
 ---
 
-- [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
+- [x] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer:** You use `Model.find()`.
 
 ---
 
-- [ ] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
+- [x] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:** If you do not include all the fields it still creates a record, value for that field is missing.
 
 ---
 
-- [ ] Take a moment to view your new document in the MongoDB Atlas console.
+- [x] Take a moment to view your new document in the MongoDB Atlas console.
 
 ---
 
-- [ ] Update the API so that you retrieve a document by ID.
+- [x] Update the API so that you retrieve a document by ID.
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
-* **Your Answer:**
+* **Your Answer:** I chose `Model.findById()`.
 
 ---
 
-- [ ] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
+- [x] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
 
 * **Question:** What are the arguments for `Model.updateOne()`?
 
-* **Your Answer:**
+* **Your Answer:**  The arguments are filter and doc which are both objects. Filter searches for the document and doc is the object data that will be replacing it.
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Your Answer:**
+* **Your Answer:** The metadata is returned. The difference is that `Model.updateOne()` makes the update but returns the old version of that  document.
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
-* **Your Answer:**
+* **Your Answer:** We can add an option where we pass in an object with key pair value { new: true }
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
-* **Your Answer:**
+* **Your Answer:** The field added was `updated_at`.
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -146,23 +146,23 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+* **Your Answer:** You need to add configuration to mongoose connect statement.
 
 ---
 
-- [ ] Update the API so that you can successfully delete a record. Use the [Model.findOneAndDelete()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete) method.
+- [x] Update the API so that you can successfully delete a record. Use the [Model.findOneAndDelete()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete) method.
 
 ---
 
-- [ ] A lot of information is being returned on each request. Some of this information we may want to keep private. Using the [.select()](https://mongoosejs.com/docs/api.html#query_Query-select) method, return only the "_id", "title", "start_year", and "season_count" on all the above requests.
+- [x] A lot of information is being returned on each request. Some of this information we may want to keep private. Using the [.select()](https://mongoosejs.com/docs/api.html#query_Query-select) method, return only the "_id", "title", "start_year", and "season_count" on all the above requests.
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:** Using select on the post request throws an error. You can get around this by creating a new object with the desired fields from the response. The rest of the responses don't throw errors when using `select()`.
 
 ---
 
-- [ ] Modify your `GET /api/series` route so that you can search through the content based off of query parameters. For example, if your request was `GET /api/series?start_year=1997`, it would return all series that start in 1997.
+- [x] Modify your `GET /api/series` route so that you can search through the content based off of query parameters. For example, if your request was `GET /api/series?start_year=1997`, it would return all series that start in 1997.
 
 ---
 
