@@ -32,35 +32,35 @@ Once installation is working, try creating and requesting resources. Note that t
 
 ### Instructions & Guiding Questions
 
-- [ ] Take a moment to look through the code that already exists in this repository. Run the code and test out each route, ensuring it does what you expect.
+- [X] Take a moment to look through the code that already exists in this repository. Run the code and test out each route, ensuring it does what you expect.
 
 ---
 
-- [ ] We will be using both [mongoose](https://mongoosejs.com/docs/guide.html) and [mongodb](https://docs.mongodb.com/manual/) to build this project. Open up each project's documentation.
+- [X] We will be using both [mongoose](https://mongoosejs.com/docs/guide.html) and [mongodb](https://docs.mongodb.com/manual/) to build this project. Open up each project's documentation.
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
+* **Your Answer:**  MongoDB is a database; Mongoose is a Node.js library for connecting to MongoDB.
 
 ---
 
-- [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
+- [X] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** Defined in terms normally used with relational databases, a MongoDB database is comparable to a schema; a collection is comparable to a table; and a document is a BSON document comparable to a row/record.
 
 ---
 
-- [ ] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
+- [X] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:**  JavaScript
 
 ---
 
-- [ ] Merge the following into your schema:
+- [X] Merge the following into your schema:
   ```js
   {
     _id: Schema.Types.ObjectId
@@ -69,11 +69,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:**  A generated ID.
 
 ---
 
-- [ ] Remove the line we just added from your schema.
+- [X] Remove the line we just added from your schema.
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
@@ -81,7 +81,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 ---
 
-- [ ] Add the following object as the _second argument_ to the `new Schema()` statement.
+- [X] Add the following object as the _second argument_ to the `new Schema()` statement.
   ```js
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
@@ -90,19 +90,19 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**  
+* **Your Answer:**  created at and updated at timestamps.  Created at should never change, but updated at updates any time you edit the data.  
 
 ---
 
-- [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
+- [X] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer:** find()
 
 ---
 
-- [ ] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
+- [X] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
