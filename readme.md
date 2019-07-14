@@ -40,7 +40,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:** MongoDB is a NoSQL document database and Mongoose is a Object Data Modeling or (ODM) library for working with, or speaking to, a MongoDB and Node.js. Mongoose helps manage the content within our database.
+* **Your Answer:** MongoDB is a NoSQL document database that allows us to store data. Mongoose is a Object-Document Mapper or (ODM), see https://www.mongodb.com/blog/post/part-2-introducing-mongoose-to-your-nodejs-and-restify-api, library for working with, or speaking to, a MongoDB. More specfically, Mongoose help us define how objects in the database should look like and also help with creating Modeal and Schemas to manage the content within our database.
 
 ---
 
@@ -51,7 +51,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Your Answer:**
 
 - Document is a record or representation of data in MongoDB.
-- Collections are a group of MongoDB documents.
+- Collections are a group of MongoDB documents or records.
 - Database is a physical container for collections.
 
 ---
@@ -73,9 +73,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
-
-### It represents a unique key identifier. // Go back and re-watch class for more info on this.
+* **Your Answer:** It represents a unique key identifier or serielization on the specified Object that is a long string. This is specific format that Mongoose uses internally. We'd typically use this when defining a Schema object.
 
 ---
 
@@ -83,9 +81,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
-
-### re-watch for class notes...I missed it.
+* **Your Answer:** Yes. Mongoose creates a unique key for us by default that is stored under \_id.
 
 ---
 
@@ -98,17 +94,15 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
-
-### re-watch for class notes. Not clear on the answer.
+* **Your Answer:** It allows us to store the time a record was created and updated. The key/value pairs are re-mapping the keys to some other values.
 
 ---
 
 - [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
 
 * **Question:** What method do you use to return all documents from a collection?
-
-* **Your Answer:**
+  `
+* **Your Answer:** Using the `Model.find()`, for this app it would be `Series.find()`, method will return us all the documents from a collection.
 
 ---
 
@@ -116,7 +110,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:** It only records the fields that are included in the POST.
 
 ---
 
@@ -128,7 +122,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
-* **Your Answer:**
+* **Your Answer:** I chose the `Model.findById()` method.
 
 ---
 
@@ -136,19 +130,19 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What are the arguments for `Model.updateOne()`?
 
-* **Your Answer:**
+* **Your Answer:** They are `filter`, `doc`. `filter` is looking for a match on the object that is passed in and `doc` will update whichever key/value pair is passed in as the second argument once the `filter` match has been found. There are also `options` and `callback` available.
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Your Answer:**
+* **Your Answer:** It seems like `Model.updateOne()` will return back meta data about the request. `Model.findOneAndUpdate()` will return back the old version of the document that was updated.
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
-* **Your Answer:**
+* **Your Answer:** We can pass in the `new` option, which if true, will return the modified document.
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
-* **Your Answer:**
+* **Your Answer:** `updated_at` was updated with a new time stamp.
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
 
@@ -158,7 +152,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+* **Your Answer:** Adding `useFindAndModify: false` to `mongoose.connect()` in our `app.js` file makes the error in the terminal disappear.
 
 ---
 
@@ -170,7 +164,9 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:**
+* **Your Answer:** `POST` threw a 400 error because the server could not process the request being sent by the client.
+
+### I've tried a number of different query method to see if I could get around this and wasn't able to. Come back to this later.
 
 ---
 
@@ -182,7 +178,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
+* **Your Answer:** With `async/await` we can add a `try/catch` block and then `console.log()` any errors we might get back. We can then use the console to help debug.
 
 ---
 

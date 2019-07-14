@@ -15,56 +15,46 @@ const series = [
 
 router.get("/", async (req, res, next) => {
   const status = 200;
-  const response = await Series.find();
+  const response = await Series.find().select("-_id -__v");
   res.json({ status, response });
-  // Option 2
-  // await Series.find().then(response => {
-  //   res.json({ status, response });
-  // });
 });
 
 router.post("/", async (req, res, next) => {
   const status = 201;
-  const response = await Series.create({
-    title: "Stranger Things",
-    start_year: 2016,
-    season_count: 3
-  });
-  res.json({ status, response });
-  // Option 2
-  // Series.create({
-  //   title: "Stranger Things",
-  //   start_year: 2016,
-  //   season_count: 3
-  // }).then(response => {
-  //   res.json({ status, response });
-  // });
+  try {
+    const response = await Series.create(req.body);
+    res.json({ status, response });
+  } catch (error) {
+    console.log(error);
+    const e = new Error("Something went wrong");
+    e.status = 400;
+    next(e);
+  }
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   const status = 200;
-  const response = series.find(({ id }) => id === req.params.id);
+  const response = await Series.findById(req.params.id).select("-_id -__v");
 
   res.json({ status, response });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   const status = 200;
-  const response = { id: req.params.id, ...req.body };
-  const single = series.find(({ id }) => id === req.params.id);
-  const index = series.indexOf(single);
-
-  series.splice(index, 1, response);
+  const response = await Series.findOneAndUpdate(
+    { _id: req.params.id },
+    { title: req.body.title },
+    { new: true }
+  );
 
   res.json({ status, response });
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   const status = 200;
-  const response = series.find(({ id }) => id === req.params.id);
-  const index = series.indexOf(response);
-
-  series.splice(index, 1);
+  const response = await Series.findOneAndDelete({ _id: req.params.id }).select(
+    "-_id -__v"
+  );
 
   res.json({ status, response });
 });
