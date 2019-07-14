@@ -173,7 +173,7 @@ Added {useFindAndModify: false} to the parameters passed to mongoose.connect() i
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
 * **Your Answer:** 
-
+Post and put do not allow for .select(). To get around this we would have to filter out the object properties that we don't want from the response and send the filtered object.
 ---
 
 - [ ] Modify your `GET /api/series` route so that you can search through the content based off of query parameters. For example, if your request was `GET /api/series?start_year=1997`, it would return all series that start in 1997.
@@ -185,6 +185,7 @@ Added {useFindAndModify: false} to the parameters passed to mongoose.connect() i
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
 * **Your Answer:**
+Add error into the catch. Then log the error.message because it contains detailed information about the error and what part of the validation failed.
 
 ---
 
@@ -193,11 +194,12 @@ Added {useFindAndModify: false} to the parameters passed to mongoose.connect() i
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
 * **Your Answer:**
+_id
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
 * **Your Answer:**
-
+I would have to update the put route I believe
 ---
 
 - [ ] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
@@ -208,6 +210,7 @@ Added {useFindAndModify: false} to the parameters passed to mongoose.connect() i
 * **Question:** Where did you decide to put this route and why?
 
 * **Your Answer:**
+I put this in it's own get route in the same file series.js. Did so because I don't see a reason not to place it here. But, this question makes me think there is a reason and I'm not seeing it. 
 
 ---
 

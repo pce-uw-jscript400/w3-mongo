@@ -14,10 +14,11 @@ var schema = new Series({
       type: Number,
       required: true
   }, 
-  characters: [{
-      name: String,
-      actor: String,
-  }] 
+    characters: [{
+    name: {type: String, required: true}, 
+    img_url: String
+    }
+  ] 
 },
 {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
