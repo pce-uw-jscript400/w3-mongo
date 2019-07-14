@@ -40,17 +40,13 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
-
----
+* **Your Answer:** Mongodb - actual database, Mongoose - the easier way to speak to database.
 
 - [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
-
----
+* **Your Answer:** Database - has many collection of documents, collection - has many documents. Document - .
 
 - [ ] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
 
@@ -90,9 +86,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
-
----
+* **Your Answer:** Re-mappin from camelcase "createdAt" to case 'created_at'
 
 - [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
 
@@ -146,9 +140,7 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
-
----
+* **Your Answer:** Update - app.js with "useFindAndModify: false" in mongoose.connect
 
 - [ ] Update the API so that you can successfully delete a record. Use the [Model.findOneAndDelete()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete) method.
 
