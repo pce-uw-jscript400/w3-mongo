@@ -164,9 +164,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** `POST` threw a 400 error because the server could not process the request being sent by the client.
-
-### I've tried a number of different query method to see if I could get around this and wasn't able to. Come back to this later.
+* **Your Answer:** `POST` threw a 400 error because the server could not process the request being sent by the client. I've tried a number of the different query methods in the Mongoose docs to see if I could get around this and wasn't able to. Hoping we can cover the solution in class.
 
 ---
 
@@ -186,11 +184,29 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:** Mongoose created a unique key identifies in the `characters` array.
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
-* **Your Answer:**
+* **Your Answer:** I would need to update the `PUT` route and attempted something like the following:
+
+```js
+router.put("/:id/:id", async (req, res, next) => {
+  const status = 200;
+  const response = await Series.findOneAndUpdate(
+    { _id: req.params.id },
+    { title: req.body.title },
+    { start_year: req.body.start_year },
+    { season_count: req.body.season_count },
+    { characters: req.body.characters.name },
+    { new: true }
+  );
+
+  res.json({ status, response });
+});
+```
+
+I was trying to see if I could drill down in the id's to get to the character name, but that doesn't work here. Hoping we can cover the solution in class.
 
 ---
 

@@ -44,6 +44,9 @@ router.put("/:id", async (req, res, next) => {
   const response = await Series.findOneAndUpdate(
     { _id: req.params.id },
     { title: req.body.title },
+    { start_year: req.body.start_year },
+    { season_count: req.body.season_count },
+    { characters: req.body.characters.name },
     { new: true }
   );
 
