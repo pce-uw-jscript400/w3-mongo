@@ -164,7 +164,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** `POST` threw a 400 error because the server could not process the request being sent by the client. I've tried a number of the different query methods in the Mongoose docs to see if I could get around this and wasn't able to. Hoping we can cover the solution in class.
+* **Your Answer:** `POST` threw a 400 error because the server could not process the request being sent by the client. I've tried a number of the different query methods in the Mongoose docs to see if I could get around this and wasn't able to. Hoping we can cover the solution with more detail in class.
 
 ---
 
@@ -206,7 +206,7 @@ router.put("/:id/:id", async (req, res, next) => {
 });
 ```
 
-I was trying to see if I could drill down in the id's to get to the character name, but that doesn't work here. Hoping we can cover the solution in class.
+I was trying to see if I could drill down in the id's to get to the character name, but that doesn't work here. Hoping we can cover the solution with more detail in class.
 
 ---
 
@@ -217,7 +217,7 @@ I was trying to see if I could drill down in the id's to get to the character na
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:** I followed the example code provided to us and placed the route in `app.js`. This made sense to me, since we would setup any additional routes for this app there. I also followed the provided example and broke out the `GET` request for characters in a separate file. After reviewing this file, I really liked the idea of breaking out request for subdocuments in a separate `routes` file to help keep our code clean and organized.
 
 ---
 
@@ -225,7 +225,7 @@ Spend the rest of class building out the other routes for characters. A few note
 
 - It's worth reading the [subdocument](https://mongoosejs.com/docs/subdocs.html) documentation in full
 - Take note of the `.id()` method for finding subdocuments by id
-- Note that in order to save subdocuments, you will need to save the parent record; in our case, you should be calling `series.save()`, _not_ `character.save()`
+- Note that in order to save subdocuments, you will need to save the parent record; in our case, you should be calling `series. save()`, _not_ `character.save()`
 
 If you're interested in going further, I would recommend looking into [references](https://mongoosejs.com/docs/populate.html).
 
