@@ -1,51 +1,75 @@
 const router = require('express').Router()
 const { generate: generateId } = require('shortid')
+const Series = require('../models/series')
+
 
 const series = [{
   id: "j9U3iNIQi",
   name: "Buffy the Vampire Slayer"
 }];
 
-router.get('/', (req, res, next) => {
+router.get('/',async (req, res, next) => {
   const status = 200
-  const response = series
-  
+  const response = await Series.find()//.select('title')
   res.json({ status, response })
+
+  //***/promise based***
+  //Series.find().then(response=>{
+  //  res.json({status,response})
+  //})
 })
 
-router.post('/', (req, res, next) => {
+router.post('/',async  (req, res, next) => {
   const status = 201
+  try{
+    const response = await Series.create(req.body)
+    res.json({ status, response })
+  }catch(error){
+    console.log(error)
+      const e = new Error(error.message)
+      e.status = 400
+      next(e)
+  }
   
-  series.push({ id: generateId(), ...req.body })
-  const response = series
+
+  //***Promise based***/
+  //Series.create(req.body)
+  //  .then(response=>{
+  //    res.json({status, response})
+  //  }).catch(error=>{
+  //      console.log(error)
+  //      const e = new Error('Something did not work')
+  //      e.status = 400
+  //      next(e)
+  //  })
+  })
+      
+  
+
+router.get('/:id',async (req, res, next) => {
+  const status = 200
+  const response = await Series.findById(req.params.id)
+
+  //**Another option **/
+  //const response = await Series.findOne({_id: req.params.id})
+  res.json({ status, response })
+
+  /*Promise based*/
+  //Series.findById(req.params.id).then(response =>{
+  //  res.json({status,response})
+  //})
+})
+
+router.put('/:id',async (req, res, next) => {
+  const status = 200
+  const response = await Series.findOneAndUpdate({_id: req.params.id},{title: req.body.title},{new: true})
   
   res.json({ status, response })
 })
 
-router.get('/:id', (req, res, next) => {
+router.delete('/:id',async (req, res, next) => {
   const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-
-  res.json({ status, response })
-})
-
-router.put('/:id', (req, res, next) => {
-  const status = 200
-  const response = { id: req.params.id, ...req.body }
-  const single = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(single)
-
-  series.splice(index, 1, response)
-  
-  res.json({ status, response })
-})
-
-router.delete('/:id', (req, res, next) => {
-  const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(response)
-
-  series.splice(index, 1)
+  const response = await Series.findOneAndDelete({_id: req.params.id})
 
   res.json({ status, response })
 })
