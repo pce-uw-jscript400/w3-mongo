@@ -42,6 +42,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+Mongoose creates the schema and keeps track of what the object should contain and the shape of it. MongoDB is the database that stores these object.s
+
 ---
 
 - [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
@@ -49,6 +51,8 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
 * **Your Answer:**
+Database has many collections, collections have many documents.
+A document is a singular represenation of one entity. Collections are all of the documents that are related somehow. And the database is a conglomeration of a number of collections that are related in another high level way.
 
 ---
 
@@ -57,6 +61,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where does `String` and `Number` come from?
 
 * **Your Answer:**
+String and Number come from Javascript.
 
 ---
 
@@ -70,6 +75,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
+It is adding a unique id for each object that is created
 
 ---
 
@@ -78,7 +84,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
 * **Your Answer:**
-
+Not one that we have access to.
 ---
 
 - [ ] Add the following object as the _second argument_ to the `new Schema()` statement.
@@ -91,7 +97,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
-
+It is changing the default camelcase createdAt and updatedAt to created_at and updated_at to be more inline with the way that other values are conventionally stored in databases
 ---
 
 - [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
@@ -99,6 +105,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What method do you use to return all documents from a collection?
 
 * **Your Answer:**
+.find()
 
 ---
 
@@ -107,6 +114,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
 * **Your Answer:**
+The object gets created, but is missing that field
 
 ---
 
@@ -119,6 +127,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
 * **Your Answer:**
+findById();
 
 ---
 
@@ -127,18 +136,22 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What are the arguments for `Model.updateOne()`?
 
 * **Your Answer:**
+The arguments are two objects. The first is a key:value pair that looks for a match in the database that has the same key:value values. The second object is another key:value pair which finds the key in that object found by the first object parameter and updates the value of that key to be the value given in this parameter. i.e. Series.updateOne({title: 'Twin Peaks'}, {start_year: 2018}) will find the series with the title of 'Twin Peaks' and update the start_year to be 2018.
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
 * **Your Answer:**
+updateOne() returns object that contains information about the request. findOneAndUpdate() returns the object that is being returned from find(), i.e. without the update
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
 * **Your Answer:**
+{new: true}
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
 * **Your Answer:**
+updated_at
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -147,6 +160,7 @@ Once installation is working, try creating and requesting resources. Note that t
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
 * **Your Answer:**
+Added {useFindAndModify: false} to the parameters passed to mongoose.connect() in app.js and the errors are gone
 
 ---
 
@@ -159,7 +173,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
 * **Your Answer:** 
-
+Post and put do not allow for .select(). To get around this we would have to filter out the object properties that we don't want from the response and send the filtered object.
 ---
 
 - [ ] Modify your `GET /api/series` route so that you can search through the content based off of query parameters. For example, if your request was `GET /api/series?start_year=1997`, it would return all series that start in 1997.
@@ -171,6 +185,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
 * **Your Answer:**
+Add error into the catch. Then log the error.message because it contains detailed information about the error and what part of the validation failed.
 
 ---
 
@@ -179,11 +194,12 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
 * **Your Answer:**
+_id
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
 * **Your Answer:**
-
+I would have to update the put route I believe
 ---
 
 - [ ] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
@@ -194,6 +210,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where did you decide to put this route and why?
 
 * **Your Answer:**
+Put in a file called series.js to be ablet to use the subdocumentation functionality.
 
 ---
 
