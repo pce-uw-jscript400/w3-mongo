@@ -77,6 +77,18 @@ router.get('/:id/characters/:subid', async(req, res, next) => {
   res.json({ status, response })
 })
 
+router.put('/:id/characters/:subid', async(req, res, next) => {
+  const status = 200
+  const id = req.params.id
+  const subid = req.params.subid
+  const parent= await Series.findOne({_id: id})
+  const character = parent.characters.id(subid)
+  character.set(req.body)
+  parent.save()
+  response = character
+  res.json({ status, response })
+})
+
 router.delete('/:id', async (req, res, next) => {
   const status = 200
   const response = await Series.findOneAndDelete({ _id: req.params.id })
@@ -94,5 +106,6 @@ router.delete('/:id/characters/:subid', async(req, res, next) => {
   response = parent.characters
   res.json({ status, response })
 })
+
 
 module.exports = router
