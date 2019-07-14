@@ -210,7 +210,7 @@ I would have to update the put route I believe
 * **Question:** Where did you decide to put this route and why?
 
 * **Your Answer:**
-I put this in it's own get route in the same file series.js. Did so because I don't see a reason not to place it here. But, this question makes me think there is a reason and I'm not seeing it. 
+Put in a file called series.js to be ablet to use the subdocumentation functionality.
 
 ---
 
