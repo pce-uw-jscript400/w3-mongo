@@ -133,11 +133,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
-* **Your Answer:**
+* **Your Answer:add the option new: true
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
-* **Your Answer:**
+* **Your Answer: the "updated at" field
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -145,7 +145,7 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+* **Your Answer:the mongoose function is older than the mongo function, therefor the mongoose uses a different function (findandmodify), however you can override the mongoose action and use the mongo findoneandupdate, by using a global option.
 
 ---
 
@@ -157,7 +157,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer: the .select only takes one arguement, so I put all keys into one arguement and it no longer returned an error "const response = await Series.find().select('_id title season_count start_year')"
 
 ---
 
@@ -169,7 +169,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
+* **Your Answer:
 
 ---
 
@@ -177,7 +177,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:a sub or nested document id
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
