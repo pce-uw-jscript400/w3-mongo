@@ -5,7 +5,10 @@ const app = express();
 
 // Database Connection
 if (MONGO_DB_CONNECTION) {
-  mongoose.connect(MONGO_DB_CONNECTION, { useNewUrlParser: true });
+  mongoose.connect(MONGO_DB_CONNECTION, {
+    useNewUrlParser: true,
+    useFindAndModify: false
+  });
   console.log("Connected to database...");
 } else {
   console.log("Could not connect to database!");
@@ -17,6 +20,10 @@ app.use(require("body-parser").json());
 
 // Routes
 app.use("/api/series", require("./api/routes/series"));
+app.use(
+  "/api/series/:seriesId/characters",
+  require("./api/routes/series.characters")
+);
 
 // Not Found Handler
 app.use((req, res, next) => {

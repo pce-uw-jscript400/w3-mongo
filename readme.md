@@ -114,7 +114,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 - [ ] Take a moment to view your new document in the MongoDB Atlas console.
 
----
+## we will have a document which missing properties that we haven't included in the model.create() function
 
 - [ ] Update the API so that you retrieve a document by ID.
 
@@ -122,7 +122,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## findById(req.params.id)
 
 - [ ] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
 
@@ -130,19 +130,31 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
-* **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
+## 1: filter, which can be an Id or title etc to find the first match in the database.
 
-* **Your Answer:**
+## 2: update, this argument will be replaced in the filtered document parameter.
 
-* **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
+## 3: optional
 
-* **Your Answer:**
+- **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Question:** Another field was updated when you ran this command. Which one was it?
+- **Your Answer:**
 
-* **Your Answer:**
+## information is the database automatic response. if we use findOneAndUpdate we will receive is the old documents info.
 
-* **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
+- **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
+
+- **Your Answer:**
+
+## {new: true}
+
+- **Question:** Another field was updated when you ran this command. Which one was it?
+
+- **Your Answer:**
+
+## newly modified value
+
+- **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
 
   ```
   DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated. See: https://mongoosejs.com/docs/deprecations.html#-findandmodify-
@@ -150,9 +162,9 @@ Once installation is working, try creating and requesting resources. Note that t
 
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+- **Your Answer:**
 
----
+## we need to add useFindAndModify: false in the mongoose connection function.
 
 - [ ] Update the API so that you can successfully delete a record. Use the [Model.findOneAndDelete()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete) method.
 
@@ -164,7 +176,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## We can't use it with post which requires to use .select() after .create() function. We need to use filter on the response.
 
 - [ ] Modify your `GET /api/series` route so that you can search through the content based off of query parameters. For example, if your request was `GET /api/series?start_year=1997`, it would return all series that start in 1997.
 
@@ -176,7 +188,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## using try and catch and in the catch section by using catch(error) we can see more detail about what went wrong.
 
 - [ ] With Mongo, it is simple to create complex data structures. Add a `characters` field to your Series model that is an array of objects. Each object should have a `name` and `image_url`. Only the `name` field on the character should be required. _Note: Don't forget to change your select statements to include the `characters` field!_
 
@@ -184,11 +196,13 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
-* **Question:** With the current routes that we have, how would you upate the name of a character in a series?
+## Automatically generated \_id for our sub-document which in this case is characters.
 
-* **Your Answer:**
+- **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
----
+- **Your Answer:**
+
+## Using POST localhost:5000/api/series/:id and in the body by modifing "characters":[{"name":"new name"}]
 
 - [ ] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
   ```
@@ -199,7 +213,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+## I used solution branch of the class work and it was better idea than what I had in mind since it completely separated the two routing from each other in the app.js
 
 Spend the rest of class building out the other routes for characters. A few notes to help:
 
