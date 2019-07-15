@@ -169,7 +169,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:
+* **Your Answer:Put the error message in the required filed within the schema
 
 ---
 
@@ -192,7 +192,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:I put it at the beginning of the routes/series, while if I was developing a whole new app to handle all the subdocuments, a nw route file would have been the best way to go to keep a clean and readable code.  However, since I was only doing the one route, putting it in the main route seemed the best way
 
 ---
 
