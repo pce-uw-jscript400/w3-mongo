@@ -2,53 +2,70 @@ const router = require('express').Router()
 const Series = require('../models/series');
 const { generate: generateId } = require('shortid')
 
-const series = [{
-  id: "j9U3iNIQi",
-  name: "Buffy the Vampire Slayer"
-}];
+// const series = [{
+//   id: "j9U3iNIQi",
+//   name: "Buffy the Vampire Slayer"
+// }];
 
-router.get('/', async(req, res, next) => {
+router.get('/', async (req, res, next) => {
   const status = 200
-  const response = await Series.find();
-  
+  const response = await Series.find(req.query).select('_id title start_year season_count characters');
   res.json({ status, response })
 })
 
-router.post('/', async(req, res, next) => {
+router.post('/', async (req, res, next) => {
   const status = 201
-    //series.push({ id: generateId(), ...req.body })
-  // try{
+  try {
     const response = await Series.create(req.body);
     res.json({ status, response })
-  // }catch(error){
-  //   console.log(error);
-  // }
-  
-  
+  } catch (error) {
+    console.log(error.name)
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ status: 400, response: error.message })
+    } else {
+      res.status(500).json({ status: 500, response: error.message })
+    }
+  }
 })
 
-router.get('/:id', async(req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const status = 200
-  const response = await Series.findById(req.params.id);
+  const response = await Series.findById(req.params.id).select('_id title start_year season_count');
   res.json({ status, response })
 })
 
-router.put('/:id', async(req, res, next) => {
+router.get('/:id/characters', async (req, res, next) => {
   const status = 200
-  const reponse = await Series.findOneAndUpdate(
-    { _id: req.params.id },
-    { $set: req.body },
-    { new: true }
-  );
-  
+  const response = await Series.findById(req.params.id).select('_id characters');
   res.json({ status, response })
 })
 
-router.delete('/:id', async(req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   const status = 200
-  const reponse = await Series.findOneAndDelete(
+  let response;
+  try {
+    reponse = await Series.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: req.body },
+      { new: true }
+    ).select('_id title start_year season_count');
+    res.json({ status, response })
+  }catch (error) {
+    console.log(error)
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ status: 400, response: error.message })
+    } else {
+      res.status(500).json({ status: 500, response: error.message })
+    }
+  }
+});
+
+router.delete('/:id', async (req, res, next) => {
+  const status = 200
+  let response;
+  reponse = await Series.findOneAndDelete(
     { _id: req.params.id }
-  );
+  ).select('_id title start_year season_count');
 
   res.json({ status, response })
 })
