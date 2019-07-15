@@ -40,15 +40,14 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
-
+* **Your Answer: MongoDB is a database -  in its simplest terms it is an organized collection of data.  Specifically, MongoDb stores data in as a document that resemble JSON structure.  MongooseJS is an Object Document Mapper (ODM), that is used to define objcts within a schema that maps to a MongoDB.  For me in my job, we use MS SQL Database, and SQL Server Managment Studio, which I kind of relate with MongoDB and Mongoose
 ---
 
 - [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer: A database is the repository or container for storing data, for MongoDB the data is stored as documents, a collection is the schema of how the data is storged.  The documetation relates the term collection as being akin to a Table in a database such as SQL.  Document is how the data is stored and is composed of field-and-value pairs
 
 ---
 
@@ -56,7 +55,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:They come from javascript prototype objects
 
 ---
 
@@ -69,7 +68,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:it adds an id to the schema, that can later be used as a possible primary key to the data. However, newer versions of MongoDB will add the ID automatically and it is not necessary to define in the Schema
 
 ---
 
@@ -77,7 +76,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:Yes, newer versions of MongoDB will auto create an ID
 
 ---
 
@@ -90,7 +89,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:it adds a type of metadata about the document.. specificaly when the record was created and when it was last modified
 
 ---
 
@@ -98,7 +97,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer: Get
 
 ---
 
@@ -106,7 +105,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:they are not added to the document, basically unavailable, the other fields are created though
 
 ---
 
@@ -118,7 +117,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
-* **Your Answer:**
+* **Your Answer: findfindById();  this one seems the most direct, and since the ID is a primary key, you can be sure to get one entry back
 
 ---
 
@@ -126,11 +125,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What are the arguments for `Model.updateOne()`?
 
-* **Your Answer:**
+* **Your Answer:the value key pair the key you want to change and the new value, and the object id
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Your Answer:**
+* **Your Answer:the return is form the db, with the results of the Put statement.  it gives the time and a transaction ID and what i think is most important th enumber of records updated.. from there you can tell if your update was successful
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
