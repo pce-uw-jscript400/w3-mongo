@@ -11,24 +11,30 @@ const series = [{
   name: "Stranger Things"
 }];
 
+//GET all
 router.get('/', async (req, res, next) => {
   const status = 200
   // const response = await Series.find().select('title') //include things
-  const response = await Series.find().select('-_id -__v') //exclude things
+  // const response = await Series.find().select('-_id -__v') //exclude things
+  const response = await Series.find().select('_id title start_year season_count') //include multiple things
   res.json({ status, response })
 })
+
+//GET start_year filter
+// router.get('/', async (req, res, next) => {
+//   const status = 200
+//   const response = await Series.find({ start_year: req.query.start_year }).select('title start_year')
+//   res.json({ status, response })
+// })
+
+
+//other option Promise based
 
 // router.get('/', async (req, res, next) => {
 //   const status = 200
 //   Series.find().then(response => {
 //     res.json({ status, response })
 //   })
-// })
-
-// router.get('/', async (req, res, next) => {
-//   const status = 200
-//   const response = await Series.find(req.query).select(publicKeys)  
-//   res.json({ status, response })
 // })
 
 router.post('/', async (req, res, next) => {
@@ -42,6 +48,7 @@ router.post('/', async (req, res, next) => {
     e.status = 400
     next(e)
   }
+// other option Promise based
 
   // Series.create(req.body).then(response => {
   //   res.json({ status, response })
@@ -53,14 +60,12 @@ router.post('/', async (req, res, next) => {
   // })
   
 })
-
+//GET by ID
 router.get('/:id', async (req, res, next) => {
   const status = 200
   // const response = await Series.findOne(_id: req.params.id)
   // const response = await Series.find(_id: req.params.id)
-
   const response = await Series.findById(req.params.id)
-
   // Series.findOnefindById(req.params.id).then(response => {
   //   res.json({ status, response })
   // })
@@ -68,12 +73,24 @@ router.get('/:id', async (req, res, next) => {
   res.json({ status, response })
 })
 
+//GET Characters by ID
+router.get('/:id/characters', async (req, res, next) => {
+  const status = 200
+  const series = await Series.findOne({ _id: req.params.id })
+  const response =  series.characters
+res.json({ status, response })
+})
+
+//Update
 router.put('/:id', async (req, res, next) => {
   const status = 200
   const response = await Series.findOneAndUpdate({ 
     _id: req.params.id 
   }, { 
-    title: req.body.title
+    title: req.body.title,
+    season_count: req.body.season_count,
+    start_year: req.body.start_year,
+    characters: req.body.characters
   }, { new: true })
 
   // const response = { id: req.params.id, ...req.body }
@@ -84,15 +101,6 @@ router.put('/:id', async (req, res, next) => {
   
   res.json({ status, response })
 })
-
-// router.put('/:id', async (req, res, next) => {
-//   const status = 200
-//   const query = { _id: req.params.id }
-//   const options = { new: true }
-//   const response = await Series.findOneAndUpdate(query, req.body, options).select(publicKeys)
-  
-//   res.json({ status, response })
-// })
 
 router.delete('/:id', async (req, res, next) => {
   const status = 200
@@ -106,6 +114,41 @@ router.delete('/:id', async (req, res, next) => {
   res.json({ status, response })
 })
 
+module.exports = router
+
+//code from solution file
+
+// const publicKeys = '_id title start_year season_count characters'
+
+// router.get('/', async (req, res, next) => {
+//   const status = 200
+//   const response = await Series.find(req.query).select(publicKeys)  
+//   res.json({ status, response })
+// })
+// router.post('/', async (req, res, next) => {
+//   const status = 201
+//   try {
+//     const series = await Series.create(req.body)
+//     const response = await Series.findById(series._id).select(publicKeys)
+
+//     res.json({ status, response })  
+//   } catch (error) {
+//     error.status = 400
+//     error.message = 'Invalid data. Please check your POST body and try again.'
+    
+//     next(error)
+//   }
+// })
+
+// router.put('/:id', async (req, res, next) => {
+//   const status = 200
+//   const query = { _id: req.params.id }
+//   const options = { new: true }
+//   const response = await Series.findOneAndUpdate(query, req.body, options).select(publicKeys)
+  
+//   res.json({ status, response })
+// })
+
 // router.delete('/:id', async (req, res, next) => {
 //   const status = 200
   
@@ -114,5 +157,3 @@ router.delete('/:id', async (req, res, next) => {
 
 //   res.json({ status, response })
 // })
-
-module.exports = router
