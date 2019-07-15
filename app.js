@@ -27,6 +27,7 @@ app.use((req, res, next) => {
 
 // Error Handler
 app.use((err, req, res, next) => {
+  console.log('In error handler')
   if (NODE_ENV === 'development') console.error(err)
   const { message, status } = err
   res.status(status).json({ status, message })
