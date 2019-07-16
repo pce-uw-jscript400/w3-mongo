@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
   // const response = series
   // to exclude do a dash '-_id'
   // console.log(req.params.length)
-  const response = await Series.find(({...req.query}))
+  const response = await Series.find(({...req.query})).select('_id title start_year season_count characters image_url')
   res.json({ status, response })
 
   // Series.find().then(response =>{
@@ -38,7 +38,8 @@ router.post('/', async (req, res, next) => {
     // res.json({ status, title })
     res.json({ status, response })
   }  catch (error)  {
-      const e = new Error('Something went bad')
+      console.log(error.errors)
+      const e = new Error(error)
       e.status = 400
       next(e)
   }
@@ -54,6 +55,13 @@ router.post('/', async (req, res, next) => {
   //   e.status = 400
   //   next(e)
   // })
+})
+
+router.get('/:id/characters', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findById(req.params.id)
+  const characters = response.characters
+  res.json({ status, characters })
 })
 
 router.get('/:id', async (req, res, next) => {

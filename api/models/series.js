@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var schema = new Schema({
   title:  {
     type: String,
-    required: true
+    required: [true, "Title is blank"]
   },
   start_year: {
     type: Number,
@@ -15,8 +15,11 @@ var schema = new Schema({
     required: true
   },
   characters: [{
-    name: String,
-    actor: String
+    name: {
+      type: String,
+      required: true
+    },
+    image_url: String
   }]
 }, {
   // every database uses snake case by default

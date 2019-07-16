@@ -166,34 +166,33 @@ Once installation is working, try creating and requesting resources. Note that t
 
 ---
 
-- [ ] At the moment, there is no validation set on creating any series. Add validation so that each of the three fields are required in order to post to series. Handle any errors that arise with a status code 400 and a brief, standardized message.
+- [x] At the moment, there is no validation set on creating any series. Add validation so that each of the three fields are required in order to post to series. Handle any errors that arise with a status code 400 and a brief, standardized message.
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
-
+* **Your Answer:** You can add custom messages within the schema for each field. You can use these specific messages to console log the list of errors and indicate what part of the validation failed.
 ---
 
-- [ ] With Mongo, it is simple to create complex data structures. Add a `characters` field to your Series model that is an array of objects. Each object should have a `name` and `image_url`. Only the `name` field on the character should be required. _Note: Don't forget to change your select statements to include the `characters` field!_
+- [x] With Mongo, it is simple to create complex data structures. Add a `characters` field to your Series model that is an array of objects. Each object should have a `name` and `image_url`. Only the `name` field on the character should be required. _Note: Don't forget to change your select statements to include the `characters` field!_
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:** An _id field was automatically created.
 
-* **Question:** With the current routes that we have, how would you upate the name of a character in a series?
+* **Question:** With the current routes that we have, how would you update the name of a character in a series?
 
-* **Your Answer:**
+* **Your Answer:** Within the put `/:id` route we could find the character and update it.
 
 ---
 
-- [ ] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
+- [x] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
   ```
   GET /api/series/:seriesID/characters
   ```
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:** I put this route above the `GET /:id` route becuase that one returns all series. The characters one is more specific so it should go above the get all series.
 
 ---
 
