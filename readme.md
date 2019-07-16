@@ -42,6 +42,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+mongodb is the database and mongoose allows us to access the data in the database without writing SQL.
+
 ---
 
 - [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
@@ -50,6 +52,10 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+database - something that has a number of collections in it.
+collection - collections is the mongodb version of a table and has many documents.
+document - a document is a single record.
+
 ---
 
 - [ ] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
@@ -57,6 +63,8 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where does `String` and `Number` come from?
 
 * **Your Answer:**
+
+This is like a create table statement in SQL where you would define the type of value in a field.
 
 ---
 
@@ -71,6 +79,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+It's adding a primary key. 
+
 ---
 
 - [ ] Remove the line we just added from your schema.
@@ -78,6 +88,8 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
 * **Your Answer:**
+
+Yes since it automatically adds an id.
 
 ---
 
@@ -92,6 +104,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+It adds information on when something was created and each time it was updated. Also changing from camel case to snake case. 
+
 ---
 
 - [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
@@ -100,6 +114,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+`.find()`
+
 ---
 
 - [ ] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
@@ -107,6 +123,8 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
 * **Your Answer:**
+
+If the fields aren't required then the object is still created without those fields.
 
 ---
 
@@ -120,6 +138,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+`Series.findByID(req.params.id)`
+
 ---
 
 - [ ] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
@@ -128,17 +148,25 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+There are three parameters for `Model.updateOne()`; filter, doc and options.
+
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
 * **Your Answer:**
+
+
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
 * **Your Answer:**
 
+`{new: true}`
+
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
 * **Your Answer:**
+
+updated_at
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -147,6 +175,8 @@ Once installation is working, try creating and requesting resources. Note that t
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
 * **Your Answer:**
+
+`useFindAndModify: false`
 
 ---
 
@@ -160,6 +190,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:** 
 
+.select(`title start_year`)
+
 ---
 
 - [ ] Modify your `GET /api/series` route so that you can search through the content based off of query parameters. For example, if your request was `GET /api/series?start_year=1997`, it would return all series that start in 1997.
@@ -172,6 +204,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+The error message from each of these fields can be used to create more specific messages for a user who inputs incorrect information.
+
 ---
 
 - [ ] With Mongo, it is simple to create complex data structures. Add a `characters` field to your Series model that is an array of objects. Each object should have a `name` and `image_url`. Only the `name` field on the character should be required. _Note: Don't forget to change your select statements to include the `characters` field!_
@@ -180,9 +214,13 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+It created an _id field for the actor.
+
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
 * **Your Answer:**
+
+use the PUT route to update a character.
 
 ---
 
@@ -194,6 +232,8 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where did you decide to put this route and why?
 
 * **Your Answer:**
+
+
 
 ---
 
