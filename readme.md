@@ -41,7 +41,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What is the difference between mongoose and mongodb?
 
 * **Your Answer:**
-
+They are used together.  Mongoose is a ODM used to make it easier to use MongoDB, espically if you are coming from a SQL background.
 ---
 
 - [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
@@ -49,6 +49,10 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
 * **Your Answer:**
+Mongo stores BSON (Documents) inside a collection and that is in turn stored in a database.     
+
+document => collection => database
+dog      => dogs       => animals
 
 ---
 
@@ -57,7 +61,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where does `String` and `Number` come from?
 
 * **Your Answer:**
-
+String and Number are required to be specified for what type of data is being stored in the schema.  
 ---
 
 - [ ] Merge the following into your schema:
@@ -70,7 +74,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
-
+It is adding the primary key, the unique value.
 ---
 
 - [ ] Remove the line we just added from your schema.
@@ -78,7 +82,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
 * **Your Answer:**
-
+Yes, it will create a primary key of the objectId.
 ---
 
 - [ ] Add the following object as the _second argument_ to the `new Schema()` statement.
@@ -91,7 +95,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
-
+The above is adding a timestamp to the schema on each record for when it is created and when it is updated.
 ---
 
 - [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
@@ -99,16 +103,19 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What method do you use to return all documents from a collection?
 
 * **Your Answer:**
-
----
+  module.exports = mongoose.model('Series', schema) will return all documents.
+  
+  ---
 
 - [ ] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
 * **Your Answer:**
-
+It will fail on the schema validation.
 ---
+
+
 
 - [ ] Take a moment to view your new document in the MongoDB Atlas console.
 
@@ -119,7 +126,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
 * **Your Answer:**
-
+async await method.
 ---
 
 - [ ] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
@@ -127,18 +134,24 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What are the arguments for `Model.updateOne()`?
 
 * **Your Answer:**
+updateOne will update the first one it finds vs. findOneAndUpdate requires the ID.
+
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
 * **Your Answer:**
+I am not quite sure, does it just return the old document?
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
 * **Your Answer:**
+  User { new: true }) needs to be there.
+
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
 * **Your Answer:**
+Timestamp I think, the modified one.
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -147,6 +160,7 @@ Once installation is working, try creating and requesting resources. Note that t
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
 * **Your Answer:**
+You can set mongoose.set('useFindAndModify', false);
 
 ---
 
@@ -159,7 +173,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
 * **Your Answer:** 
-
+I am not sure on this question.
 ---
 
 - [ ] Modify your `GET /api/series` route so that you can search through the content based off of query parameters. For example, if your request was `GET /api/series?start_year=1997`, it would return all series that start in 1997.
@@ -171,7 +185,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
 * **Your Answer:**
-
+You can use a try / catch to see if something can work, or just catch the error if it happens.  For each field you can specify a specific catch error.
 ---
 
 - [ ] With Mongo, it is simple to create complex data structures. Add a `characters` field to your Series model that is an array of objects. Each object should have a `name` and `image_url`. Only the `name` field on the character should be required. _Note: Don't forget to change your select statements to include the `characters` field!_
@@ -179,11 +193,14 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
 * **Your Answer:**
+   The _id was added automatically. 
+
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
 * **Your Answer:**
 
+Currently you would have to also pass the id and id of the characters.
 ---
 
 - [ ] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
@@ -194,6 +211,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where did you decide to put this route and why?
 
 * **Your Answer:**
+Below the series that requests by just ID. e.g  Below; router.get('/:id', async (req, res, next) => {
 
 ---
 
