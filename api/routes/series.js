@@ -65,7 +65,7 @@ router.get('/:id', async (req, res, next) => {
 
   // const response = await Series.find(({ id }) => id === req.params.id)
 
-  const response = await Series.findByID(req.params.id)
+  const response = await Series.findById(req.params.id)
 
   res.json({ status, response })
 })
