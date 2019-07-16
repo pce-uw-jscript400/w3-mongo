@@ -65,11 +65,7 @@ router.get('/:id/characters', async (req, res, next) => {
   const characters = response.characters; 
   res.json({ status, characters })
 })
-router.post('/:id/characters', async (req, res, next) => {
-  const status = 201
-  const response = await Series.findById(req.params.id)
 
-})
 router.put('/:id/characters', async (req, res, next) => {
   const status = 200
   const response = await Series.findOneAndUpdate({
