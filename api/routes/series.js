@@ -1,53 +1,88 @@
 const router = require('express').Router()
 const { generate: generateId } = require('shortid')
+const Series = require('../models/series')
 
 const series = [{
   id: "j9U3iNIQi",
   name: "Buffy the Vampire Slayer"
 }];
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   const status = 200
-  const response = series
+  let response
+  if (req.query) {
+    // Only accepts exact matches currently
+    response = await Series.find(req.query)
+  } else {
+    response = await Series.find()
+  }
+  
   
   res.json({ status, response })
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const status = 201
   
-  series.push({ id: generateId(), ...req.body })
-  const response = series
-  
-  res.json({ status, response })
+  const response = await Series.create(req.body)
+    .then(response => {
+      res.json({ status, response })
+    })
+    .catch(err => {
+      res.json(err.message)
+    })
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-
+  const response = await Series.findById(req.params.id).select('_id title start_year season_count')
   res.json({ status, response })
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   const status = 200
-  const response = { id: req.params.id, ...req.body }
-  const single = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(single)
-
-  series.splice(index, 1, response)
-  
+  const response = await Series.findOneAndUpdate({
+    _id: req.params.id
+  },{
+    ...req.body
+  }, {
+    new: true
+  })
   res.json({ status, response })
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(response)
-
-  series.splice(index, 1)
-
+  const response = await Series.findOneAndDelete({
+    _id: req.params.id
+  })
   res.json({ status, response })
 })
 
+router.get('/:id/characters', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findById(req.params.id)
+  const characters = response.characters; 
+  res.json({ status, characters })
+})
+
+router.put('/:id/characters', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findOneAndUpdate({
+    _id: req.params.id
+  },{
+    ...req.body.characters
+  }, {
+    new: true
+  })
+  res.json({ status, response })
+})
+
+router.delete('/characters/:CharacterId', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findOneAndDelete({
+    _id: req.params.id
+  })
+  res.json({ status, response })
+})
 module.exports = router

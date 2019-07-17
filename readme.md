@@ -40,7 +40,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
+* **Your Answer:** mongodb is the actual database and supporting application, whereas mongoose is a package for interacting with the database application with methods for manipulating its content. 
 
 ---
 
@@ -48,7 +48,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** A database holds the entirety of the documents stored in the cluster. Collections are groupings of document entries. Per the documentation, akin to a classical SQL database table. A document is a single entry in the database. 
 
 ---
 
@@ -56,7 +56,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:** Those come from the String and Number constructor functions. 
 
 ---
 
@@ -69,7 +69,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** It is adding a unique global identifier field that would need to be defined on creation. 
 
 ---
 
@@ -77,7 +77,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:** Yes. Every instantiation of a new document entry will auto-generate an ID. 
 
 ---
 
@@ -90,7 +90,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** It is a schema option in mongoose to add timestamps to your document with customized field names.
 
 ---
 
@@ -98,7 +98,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer:** `.find()`
 
 ---
 
@@ -106,7 +106,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:** It will create the document but omit entries for those dimensions. 
 
 ---
 
@@ -118,7 +118,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
-* **Your Answer:**
+* **Your Answer:** `.findById()`
 
 ---
 
@@ -126,19 +126,19 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What are the arguments for `Model.updateOne()`?
 
-* **Your Answer:**
+* **Your Answer:** 1) a filter object which will retrieve the first matching document based on the values input 2) the update object with the values to be updated, 3) the (optional) options object and 4) an optional callback function.
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Your Answer:**
+* **Your Answer:** The `updateOne()` call returns an object filled with information about the query itself. `findOneAndUpdate()` returns the data that was just overwritten.
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
-* **Your Answer:**
+* **Your Answer:** add `new: true` to the options object. 
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
-* **Your Answer:**
+* **Your Answer:** the `updated_at` field.
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -146,7 +146,7 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+* **Your Answer:** By setting the `useFindAndModify` flag to false you are telling mongoose to use MongoDB's findOneAndUpdate() function rather than its findAndModify() function as there is a function name collision between Mongo and Mongoose.
 
 ---
 
@@ -158,7 +158,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:** Create throws an error. Create returns a Promise and the `.select()` function can only be applied to queries. To avoid errors or accidental inclusion/exclusion of fields, it seems that the select property should be set in the schema model itself and not applied at the route query. 
 
 ---
 
@@ -170,7 +170,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
+* **Your Answer:** You can add a `validate` object to the Schema field that includes a custom validator function for testing the entry as well as a custom message to return in the error object. 
 
 ---
 
@@ -178,11 +178,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:** An ID was automatically assigned to my character subdocument. 
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
-* **Your Answer:**
+* **Your Answer:** You would have to use the PUT call to `/:id` of the Series for the character you wish to update. 
 
 ---
 
@@ -193,7 +193,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:** I opted to put this route within the series routes as it is still contingent on the id parameter for the series similar to the `/:id` route. Since child subdocuments are only saved when their parent is saved, it made sense to put this in with the parent schema itself. 
 
 ---
 
