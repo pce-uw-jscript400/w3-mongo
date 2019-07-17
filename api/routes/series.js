@@ -1,52 +1,67 @@
 const router = require('express').Router()
 const { generate: generateId } = require('shortid')
+const Series = require ('../models/series.js');
 
 const series = [{
   id: "j9U3iNIQi",
   name: "Buffy the Vampire Slayer"
 }];
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
+  const startYear = req.query.start_year;
   const status = 200
-  const response = series
-  
-  res.json({ status, response })
+  if (startYear) { // if query param exists (true)
+    const response = await Series.find({start_year: startYear}).select('_id title start_year season_count characters') // filter response results by start year 
+    res.json({ status, response })
+  } else {
+    const response = await Series.find().select('_id title start_year season_count characters') // do not filter, return all
+    res.json({ status, response })
+  }
 })
 
-router.post('/', (req, res, next) => {
+
+
+router.post('/', async (req, res, next) => {
   const status = 201
+  try {
+    const response = await Series.create(req.body)
+    res.json({ status, response })
+  } catch (error) {
+    console.error(error)
+    const e = new Error('Something went bad')
+    e.status = 400
+    next(e)
+  }
   
-  series.push({ id: generateId(), ...req.body })
-  const response = series
-  
+})
+
+router.get('/:id/characters', async (req, res, next) => {
+  const status = 200
+  const response = await Series.findById(req.params.id).select('characters')
   res.json({ status, response })
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-
+  const response = await Series.findById(req.params.id).select('_id title start_year season_count characters')
   res.json({ status, response })
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   const status = 200
-  const response = { id: req.params.id, ...req.body }
-  const single = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(single)
-
-  series.splice(index, 1, response)
-  
+  const response = await Series.findOneAndUpdate({
+    _id: req.params.id 
+  }, { 
+     ...req.body
+  }, {
+    new: true
+  }).select('_id title start_year season_count characters')
   res.json({ status, response })
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(response)
-
-  series.splice(index, 1)
-
+  const response = await Series.findOneAndDelete({ _id: req.params.id }).select('_id title start_year season_count characters')
   res.json({ status, response })
 })
 
