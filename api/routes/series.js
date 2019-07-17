@@ -1,53 +1,65 @@
-const router = require('express').Router()
-const { generate: generateId } = require('shortid')
+const router = require("express").Router();
+const { generate: generateId } = require("shortid");
+const Series = require("../models/series");
 
-const series = [{
-  id: "j9U3iNIQi",
-  name: "Buffy the Vampire Slayer"
-}];
+const series = [
+  {
+    id: "j9U3iNIQi",
+    name: "Buffy the Vampire Slayer"
+  }
+];
 
-router.get('/', (req, res, next) => {
-  const status = 200
-  const response = series
-  
-  res.json({ status, response })
-})
+router.get("/", async (req, res, next) => {
+  const status = 200;
+  Series.find()
+    .select("title  start_year season_count -_id")
+    .then(response => {
+      res.json({ status, response });
+    });
+});
 
-router.post('/', (req, res, next) => {
-  const status = 201
-  
-  series.push({ id: generateId(), ...req.body })
-  const response = series
-  
-  res.json({ status, response })
-})
+router.post("/", async (req, res, next) => {
+  const status = 201;
+  try {
+    Series.create(req.body).then(response => {
+      res.json({ status, response });
+    });
+  } catch (error) {
+    console.error(error);
+    const e = new Error("Sonthing went wrong");
 
-router.get('/:id', (req, res, next) => {
-  const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
+    e.status = 400;
+    next(e);
+  }
+});
 
-  res.json({ status, response })
-})
+router.get("/:id", async (req, res, next) => {
+  const status = 200;
+  Series.findById(req.params.id)
+    .select("title  start_year season_count -_id")
+    .then(response => {
+      res.json({ status, response });
+    });
+});
 
-router.put('/:id', (req, res, next) => {
-  const status = 200
-  const response = { id: req.params.id, ...req.body }
-  const single = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(single)
+router.put("/:id", async (req, res, next) => {
+  const status = 200;
+  const response = await Series.findOneAndUpdate(
+    { _id: req.params.id },
+    { title: req.body.title },
+    { new: true }
+  ).select("title  start_year season_count -_id");
 
-  series.splice(index, 1, response)
-  
-  res.json({ status, response })
-})
+  res.json({ status, response });
+});
 
-router.delete('/:id', (req, res, next) => {
-  const status = 200
-  const response = series.find(({ id }) => id === req.params.id)
-  const index = series.indexOf(response)
+router.delete("/:id", async (req, res, next) => {
+  const status = 200;
+  const response = await Series.findOneAndDelete({ _id: req.params.id }).select(
+    "title  start_year season_count -_id"
+  );
 
-  series.splice(index, 1)
+  res.json({ status, response });
+});
 
-  res.json({ status, response })
-})
-
-module.exports = router
+module.exports = router;
