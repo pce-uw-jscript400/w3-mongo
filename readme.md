@@ -41,6 +41,9 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What is the difference between mongoose and mongodb?
 
 * **Your Answer:**
+mongodb is the database.
+
+mongoose is a way of communicating wwith the db; it's an ORM, a package or library to do queries for you, in a more class/object-oriented approach instead of JavaScript.
 
 ---
 
@@ -50,6 +53,14 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+database - Contains collections of documents.
+
+collection - Collections are stored in a database. A collection is like a table in a relational database.
+
+document - Documents are stored in a collection. A document is a record; a representation of an entity, such as a dog.  Data records are stored as BSON binary JSON documents, but with more data types than JSON.
+See
+https://docs.mongodb.com/manual/reference/glossary/#term-document
+
 ---
 
 - [ ] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
@@ -57,6 +68,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Where does `String` and `Number` come from?
 
 * **Your Answer:**
+They are JavaScript types.
 
 ---
 
@@ -70,6 +82,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
+It represents the primary key.  Every record must have this field.  
 
 ---
 
@@ -78,6 +91,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
 * **Your Answer:**
+If you don't put this, you use the default, in the new Mongoose version; Mongoose creates it.
 
 ---
 
@@ -91,6 +105,17 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
+Enables you to see when a change in the db was made.
+
+createdAt: 'created_at'
+
+When a record is created, this date is stored.
+
+Databases use snake-case by tradition/convention, we convert to JS conventional camelCase.
+
+updatedAt: 'updated_at' 
+
+When a record is updated, this date is stored.
 
 ---
 
@@ -100,6 +125,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+Model.find() with no arguments.
+
 ---
 
 - [ ] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
@@ -107,6 +134,8 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
 * **Your Answer:**
+The field is omitted from the document.
+
 
 ---
 
@@ -120,6 +149,10 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+Model.findById()
+
+https://mongoosejs.com/docs/api/model.html#model_Model.findById
+
 ---
 
 - [ ] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
@@ -127,18 +160,36 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** What are the arguments for `Model.updateOne()`?
 
 * **Your Answer:**
+filter - updates the first document that matches this.
+
+doc
+
+options (optional)
+
+callback - a function.  (error, writeOpResult)
+
+
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
 * **Your Answer:**
 
+(I coded both calls.)
+
+updateOne returns the _old document_. The other method returns the new document.
+
+
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
 * **Your Answer:**
 
+
+
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
 * **Your Answer:**
+
+
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -148,6 +199,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+In models/series.js, added:
+
+```
+mongoose.set('useFindAndModify', false);
+```
 ---
 
 - [ ] Update the API so that you can successfully delete a record. Use the [Model.findOneAndDelete()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete) method.
