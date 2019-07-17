@@ -40,7 +40,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
+* **Your Answer:** mongodb is the actual database and mongoose is an ORM which makes it easier to wrap things nicely when we have to write to a database
 
 ---
 
@@ -48,7 +48,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** databases hold a collection of documents. A document is the smallest entity that is created and a group of similar documents is stored in a collection and a database holds a group of such collections
 
 ---
 
@@ -56,7 +56,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:** String and Number are built in javascript types
 
 ---
 
@@ -69,7 +69,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** It is the primary key for that document
 
 ---
 
@@ -77,7 +77,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:** It will be created by default. If we explicitly specify in the schema then we need to pass it in 
 
 ---
 
@@ -90,7 +90,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** It is adding a timestamp which helps keep track of the the timestamps at which the record was created and the time at which we updated the record. createdAt : created_at is basically remapping the variable from camelCase to snake_case
 
 ---
 
@@ -98,7 +98,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer:** find() method retuens all the document 
 
 ---
 
@@ -106,7 +106,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:** It is fine,at this point of time, all fields are optional. It will create a document with only the fields that are passed in
 
 ---
 
@@ -118,7 +118,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
-* **Your Answer:**
+* **Your Answer:** findbyID
 
 ---
 
@@ -126,19 +126,20 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What are the arguments for `Model.updateOne()`?
 
-* **Your Answer:**
+* **Your Answer:** updateOne() takes in the query param as the first argument. This should be the query that will be used to find the One criteria that is used for updating and the second param is what you want to update it with. You can do a lot of operations, like change existing fields, by replacing, appending, increment decrement etc.
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Your Answer:**
+* **Your Answer:** When I use updateOne i get some metadata relating to the update that was just made.
+Switching it to findOneAndUpdate returns the actual object that was updated and if used with new: true returns with the updated value else it returns the old document
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
-* **Your Answer:**
+* **Your Answer:** {new : true}
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
-* **Your Answer:**
+* **Your Answer:** updated_at
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -146,7 +147,7 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+* **Your Answer:** Mongoose versions of findOneAnd* opeartions predates the MongoDb's version of the same. Mongoose versions are essentially a wrapper around MongoDB's older findAndModify method
 
 ---
 
@@ -158,7 +159,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:** The _id field is the one that will throw an error as this is included by Mondo by default. We can get around thos by setting _id = 0 in the projection.
 
 ---
 
@@ -170,7 +171,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
+* **Your Answer:** We can make use of these messages to convey to the user sending the request what exactly went wrong instead of a generic 404. For example if something in the schema is a required property and the user had failed to send that in the body then we get a validation error, we can use these error messages to convey to the user that hey this is a required property, so please make sure you are sending the same
 
 ---
 
@@ -178,11 +179,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:** Each of the characters in the character array was assigned an _id field that we didnt have to explicity define
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
-* **Your Answer:**
+* **Your Answer:** With the current routes, you will have to do a get request for the document that we want to update then update the document using javascript, then update the put route so that we can update the character name as well
 
 ---
 
@@ -193,7 +194,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:** I will put them after all the routes for series are written. It just helps keep the first level routes are all together followed by second or deeper routes after that
 
 ---
 
