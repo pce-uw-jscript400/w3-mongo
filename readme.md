@@ -40,7 +40,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
+* **Your Answer:** MongoDB is the database mongoose is the way we speak to the database 
 
 ---
 
@@ -48,7 +48,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** a document is one record, a collection has many documents, a database has many collections 
 
 ---
 
@@ -56,7 +56,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:** javascript types
 
 ---
 
@@ -69,7 +69,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** giving it an object ID (like a guid but not)
 
 ---
 
@@ -77,7 +77,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:** yes, the new version enters it automatically
 
 ---
 
@@ -90,7 +90,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** the time the record was created/updated. changing to the snake_case.
 
 ---
 
@@ -98,7 +98,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer:** .find()
 
 ---
 
@@ -106,7 +106,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:** 
 
 ---
 
