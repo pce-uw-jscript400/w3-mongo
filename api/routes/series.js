@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
   // const response = await Series.find()
   // res.json({ status, response })
 
-  Series.find().then(response => {
+  Series.find().select('title').then(response => {
     res.json({ status, response })
   })
 })

@@ -158,7 +158,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:** '_id' will throw errors because a document must have an id.
 
 ---
 
