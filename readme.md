@@ -42,7 +42,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+Mongoose provides a way to communicate to the mongodb by providing schema to help model your data. Built in type casting, validation, query building, and hooks.
 
 - [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
 
@@ -50,7 +50,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+MongoDB "collections" store documents like table relational database.  Database is a program desgined to store collections of documents
 
 - [ ] Create a new file with the path of `api/models/series.js`. In that file, [define the schema](https://mongoosejs.com/docs/guide.html#definition) for a television series. Include the fields "title", "start_year", and "season_count".
 
@@ -58,7 +58,8 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+A string represents text and not numbers though the string '4' is considered a string becaues of the quotes.  Numbers don't require quotes and are a representation of a number. 
+Or javascript components since they are capitolized. lol 
 
 - [ ] Merge the following into your schema:
   ```js
@@ -71,7 +72,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+The above code is taking the id: variable and making it into an objectID so the mongoDB knows the heirarchy of the DB.  Primary Key.
 
 - [ ] Remove the line we just added from your schema.
 
@@ -79,7 +80,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+Mongoose or MongoDB will create a key if one isn't specified.  
 
 - [ ] Add the following object as the _second argument_ to the `new Schema()` statement.
   ```js
@@ -91,8 +92,7 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Question:** Describe what the above code is adding to your schema.
 
 * **Your Answer:**
-
----
+Make a time stamp of created object or updated object.
 
 - [ ] Import the model into your `routes/series.js` file. Use either basic promises or `async/await` to update the `GET /` method to retrieve from the database instead of the given array. [This page](https://mongoosejs.com/docs/documents.html) or [this page](https://mongoosejs.com/docs/api.html#Model) may be useful.
 
@@ -100,7 +100,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+find()
 
 - [ ] Update the API so that you can create documents in the database. You may either use the `<document>.save()` method or the `Model.create()` method.
 
@@ -108,7 +108,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+The field isn't included.  At least that is what happened when I tested this out.
 
 - [ ] Take a moment to view your new document in the MongoDB Atlas console.
 
@@ -120,7 +120,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+find() findOne() findById()
 
 - [ ] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
 
@@ -128,17 +128,24 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
+filter, doc, options, callback
+
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
 * **Your Answer:**
+You can receive an update from a callback
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
 * **Your Answer:**
+{ new: true })
+
+Though this wouldn't work for me.  Keep receiving null.
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
 * **Your Answer:**
+updated_at
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -148,7 +155,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+In your app.js you add the useFindAndModify: false as an additional parameter.
 
 - [ ] Update the API so that you can successfully delete a record. Use the [Model.findOneAndDelete()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete) method.
 
@@ -160,6 +167,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:** 
 
+I received an Unhandled promise rejection are depreceted error with the findOneAndUpdate(). I changed my function to (response => { res.json({ status, response })})
 ---
 
 - [ ] Modify your `GET /api/series` route so that you can search through the content based off of query parameters. For example, if your request was `GET /api/series?start_year=1997`, it would return all series that start in 1997.
@@ -172,19 +180,20 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+It will ensure you add the data required to complete the object in your collections.
 
 - [ ] With Mongo, it is simple to create complex data structures. Add a `characters` field to your Series model that is an array of objects. Each object should have a `name` and `image_url`. Only the `name` field on the character should be required. _Note: Don't forget to change your select statements to include the `characters` field!_
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
 * **Your Answer:**
+And Object Array was created for characters.
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
 * **Your Answer:**
+From the put route you can add the { characters: [ name: req.body.name]}.
 
----
 
 - [ ] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
   ```
@@ -195,7 +204,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Your Answer:**
 
----
+I added this route below the router.put('/:id') to start a new subset of router.get and router.put for character.
 
 Spend the rest of class building out the other routes for characters. A few notes to help:
 
