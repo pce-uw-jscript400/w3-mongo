@@ -177,7 +177,7 @@ Model.create().select() is not a function.
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
 * **Your Answer:**
-
+By adding a constraint failure message to the schema definition: required:[true, 'a start year is required']
 ---
 
 - [x] With Mongo, it is simple to create complex data structures. Add a `characters` field to your Series model that is an array of objects. Each object should have a `name` and `image_url`. Only the `name` field on the character should be required. _Note: Don't forget to change your select statements to include the `characters` field!_
