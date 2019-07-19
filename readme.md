@@ -158,7 +158,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** '_id' will throw errors because a document must have an id.
+* **Your Answer:** "season_count" didnt throw an error, but it didn't show when I specified to show "season_count" only. I could specify to exclude all other key pairs by using "-title" so only "season_count" would show up. Not sure this is the best workaround???
 
 ---
 
@@ -170,7 +170,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
+* **Your Answer:** You can add custom error messages so you know what went wrong, and look in the console to see mongoose specific error messages that specify which fields are required.
 
 ---
 
@@ -178,11 +178,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:** "_id" was made for each character and I didnt not have to define it.
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
-* **Your Answer:**
+* **Your Answer:** Update the put route to include the character key value pairs?
 
 ---
 
@@ -193,7 +193,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:** I thought to put it inside the series.js file inside the routes folder, but now it sounds like I should put it in a separate file called series.characters.js. I assume to keep things separate and organized?
 
 ---
 
