@@ -40,15 +40,14 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
-
+* **Your Answer:** MongoDB is the actual database, whereas Mongoose is the schema for interacting with the MongoDB in a sane manner. Mongoose is an object relational mapper that will make it easier to interact with the database.
 ---
 
 - [ ] MongoDB uses a number of terms that may be to new to you such as database, collection, and document.
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** Plain and simple, databases hold collections of objects. So we could think of the database as the entire store, the collection as an array and the document as an object that contains some data.
 
 ---
 
@@ -56,7 +55,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:** `String` and `Number` are types that come from Javascript. These help our Schema "enforce" the structure of the data.
 
 ---
 
@@ -69,7 +68,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** This code is adding a unique identifier to our document so that we can quickly find it. This field will be a "random" string that we've seen a little bit in the past in other assignments. This is added by default if you don't include it.
 
 ---
 
@@ -77,7 +76,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:** There will be an ID regardless because we get this "for free." 
 
 ---
 
@@ -90,7 +89,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** This is adding a `timestamp` to our document so we can get some more information or have some debugging info. We're remapping these keys to other values, from camelCase to snake_case. This is a stylistic choice.
 
 ---
 
@@ -98,7 +97,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer:** We use `Model.find()` and don't pass it any arguments to get everything back.
 
 ---
 
@@ -106,7 +105,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:** I think it will accept any subset of our keys and just ignore the missing ones for now. I think we can enforce this to not be case later on.
 
 ---
 
@@ -118,7 +117,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
-* **Your Answer:**
+* **Your Answer:** We could use either `Model.find()`, `Model.findById()` or `Model.findOne()`, I chose `Model.findById()`
 
 ---
 
@@ -126,19 +125,19 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What are the arguments for `Model.updateOne()`?
 
-* **Your Answer:**
+* **Your Answer:** It looks to me like the arguments are two objects, one object that acts a filter and then a second object that contains the changes.
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Your Answer:**
+* **Your Answer:** The information here seems more like information about the process, how many things were updated, electionId, etc. `findOneAndUpdate()` is returning the old version of the document back to us.
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
-* **Your Answer:**
+* **Your Answer:** We can add a `{new: true}` option as a third argument and we can get that new document.
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
-* **Your Answer:**
+* **Your Answer:** I'll bet the __v field was updated 👍
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -146,7 +145,7 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+* **Your Answer:** I added another key: value pair to the mongoose require statement similar to the `useNewUrlParser` key. This new key is `useFindAndModify: false`
 
 ---
 
@@ -158,7 +157,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:** `_id` will throw an error, you would have to suppress it by setting it to `0` in the projection.
 
 ---
 
@@ -170,7 +169,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
+* **Your Answer:** In our promise catch method we would pass the error along to our `next` method.
 
 ---
 
@@ -178,11 +177,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:** We didn't have to specify an ID but we got one anyways! 
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
-* **Your Answer:**
+* **Your Answer:** I don't think you'd have to update anything! It would have access to the schema already.
 
 ---
 
@@ -193,7 +192,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:** In a separate file called `series.characters.js` so as not to pollute the `series.js` file too much.
 
 ---
 
