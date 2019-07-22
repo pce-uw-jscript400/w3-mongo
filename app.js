@@ -11,6 +11,10 @@ if (MONGO_DB_CONNECTION) {
   console.log('Could not connect to database!')
 }
 
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
 // Application-level Middleware
 if (NODE_ENV === 'development') app.use(require('morgan')('dev'))
 app.use(require('body-parser').json())
