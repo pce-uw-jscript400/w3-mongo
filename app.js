@@ -17,6 +17,7 @@ app.use(require('body-parser').json())
 
 // Routes
 app.use('/api/series', require('./api/routes/series'))
+app.use('/api/series/:seriesId/characters', require('./api/routes/series.characters'))
 
 // Not Found Handler
 app.use((req, res, next) => {
