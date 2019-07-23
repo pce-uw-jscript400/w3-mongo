@@ -40,7 +40,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
+* **Your Answer:** Mongodb is the database solution and mongroose is our way to speak to the database.
 
 ---
 
@@ -48,7 +48,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** A database is made up of collections. A collection has many documents. A document is one entity/data record.
 
 ---
 
@@ -56,7 +56,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:** javascript 
 
 ---
 
@@ -69,7 +69,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** It is defining a primary key.
 
 ---
 
@@ -77,7 +77,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:** Yes, because mongoose adds one for you by default.
 
 ---
 
@@ -90,7 +90,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** Creates a record of when something was created, updated, etc. It is changing the value (remapping) of createdAt to be created_at, aka changing the format of these values. AKA camelCase to snake_case
 
 ---
 
@@ -98,7 +98,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer:** Series.find() or basically db.collection.find will return all documents from a collection.
 
 ---
 
@@ -106,7 +106,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:** That key will not be included in the POST, so when you GET, that key will not be present in that schema.
 
 ---
 
@@ -118,7 +118,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
 
-* **Your Answer:**
+* **Your Answer:** I chose the promise method. I have been using promises for the previous soultions and I wanted to be consistent. I also want to understand the async and await better before using it heavily. I have the other ways commented out so I can understand the different ways to achieve this. 
 
 ---
 
@@ -126,19 +126,19 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What are the arguments for `Model.updateOne()`?
 
-* **Your Answer:**
+* **Your Answer:** Model.updateOne() updates the first document in the collection that matches the "filter". 
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Your Answer:**
+* **Your Answer:** It is getting updated in the database, but it returns the old version.
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
-* **Your Answer:**
+* **Your Answer:** { new: true }
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
-* **Your Answer:**
+* **Your Answer:** "updated_at"
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -146,7 +146,7 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+* **Your Answer:** useFindAndModify: false. Mongoose's findOneAndUpdate() pre-dates the MongoDB driver's findOneAndUpdate(), so using this global script will tell MongoDB drivers to use useFindAndModify() function instead.
 
 ---
 
@@ -158,7 +158,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:** "season_count" didnt throw an error, but it didn't show when I specified to show "season_count" only. I could specify to exclude all other key pairs by using "-title" so only "season_count" would show up. Not sure this is the best workaround???
 
 ---
 
@@ -170,7 +170,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
+* **Your Answer:** You can add custom error messages so you know what went wrong, and look in the console to see mongoose specific error messages that specify which fields are required.
 
 ---
 
@@ -178,11 +178,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:** "_id" was made for each character and I didnt not have to define it.
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
-* **Your Answer:**
+* **Your Answer:** Update the put route to include the character key value pairs?
 
 ---
 
@@ -193,7 +193,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:** I thought to put it inside the series.js file inside the routes folder, but now it sounds like I should put it in a separate file called series.characters.js. I assume to keep things separate and organized?
 
 ---
 
