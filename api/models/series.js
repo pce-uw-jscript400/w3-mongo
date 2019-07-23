@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
   title: {
@@ -14,10 +14,7 @@ const schema = new mongoose.Schema({
     required: true
   },
   characters: [{
-    name: {
-      type: String,
-      required: true
-    },
+    name: String,
     image_url: String
   }]
 }, {
