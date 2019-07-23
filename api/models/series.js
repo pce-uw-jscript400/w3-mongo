@@ -15,6 +15,7 @@ const schema = new mongoose.Schema({
   },
   characters: [{
     name: String,
+    actor: String,
     image_url: String
   }]
 }, {
