@@ -20,14 +20,6 @@ var tvSchema = new Schema({
             type: String
         }
     }]
-    // body:   String,
-    // comments: [{ body: String, date: Date }],
-    // date: { type: Date, default: Date.now },
-    // hidden: Boolean,
-    // meta: {
-    //   votes: Number,
-    //   favs:  Number
-    // }
     }, {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });

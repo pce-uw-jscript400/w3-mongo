@@ -70,21 +70,12 @@ router.put('/:id', async (req, res, next) => {
   //   {new: true}
   // )
 
-  ////{ id: req.params.id, ...req.body }
-  ////const single = series.find(({ id }) => id === req.params.id)
-  ////const index = series.indexOf(single)
-  ////series.splice(index, 1, response)
-  
   res.json({ status, response })
 })
 
 router.delete('/:id', async (req, res, next) => {
   const status = 200
   const response = await Series.findOneAndDelete({_id: req.params.id})
-  //series.find(({ id }) => id === req.params.id)
-  //const index = series.indexOf(response)
-
-  //series.splice(index, 1)
 
   res.json({ status, response })
 })
