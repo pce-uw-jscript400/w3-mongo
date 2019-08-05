@@ -40,7 +40,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between mongoose and mongodb?
 
-* **Your Answer:**
+* **Your Answer:** mongo is the database solution, and mongoose is the way of storing the data in the mongodb. Mongoose is an ORM, a package to make is easier to access the db. It is more object oriented vs JavaScript syntax oriented. It is still apart of the server, but it's just formatting the language.
 
 ---
 
@@ -48,7 +48,9 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What is the difference between the above terms? [This page](https://docs.mongodb.com/manual/core/databases-and-collections/) may help.
 
-* **Your Answer:**
+* **Your Answer:** database = this stores collections.
+* collection = this stores documents.
+* document = one record of some entity.
 
 ---
 
@@ -56,7 +58,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where does `String` and `Number` come from?
 
-* **Your Answer:**
+* **Your Answer:** it comes from JavaScript. mongoose allows us to access it
 
 ---
 
@@ -69,7 +71,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** it is adding a unique id to the schema
 
 ---
 
@@ -77,7 +79,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** If we create a new document, will there be an ID? Why or why not?
 
-* **Your Answer:**
+* **Your Answer:** Yes, mongoose creates it on it's own
 
 ---
 
@@ -90,7 +92,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Describe what the above code is adding to your schema.
 
-* **Your Answer:**
+* **Your Answer:** we are remapping these keys to other values (i.e. camel-case to snake-case. most databases use snake_case
 
 ---
 
@@ -98,7 +100,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What method do you use to return all documents from a collection?
 
-* **Your Answer:**
+* **Your Answer:** async will setup function so we can use Series.find() with await
 
 ---
 
@@ -106,7 +108,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** What happens if you do not include all the fields as specified in the schema?
 
-* **Your Answer:**
+* **Your Answer:** it is simply omitted from the response
 
 ---
 
@@ -117,28 +119,25 @@ Once installation is working, try creating and requesting resources. Note that t
 - [ ] Update the API so that you retrieve a document by ID.
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
-
-* **Your Answer:**
-
----
+~~~A
 
 - [ ] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
 
 * **Question:** What are the arguments for `Model.updateOne()`?
 
-* **Your Answer:**
+* **Your Answer:** it takes a filter and a document. Filter does the searching, while doc is a replacing object
 
 * **Question:** The response you receive is _not_ the document you updated. What information is being represented here? Try replacing `Model.updateOne()` with the [Model.findOneAndUpdate()](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate) and see the difference in the result.
 
-* **Your Answer:**
+* **Your Answer:** .findOneAndUpdate() takes a condition and update. options and callback are also potential arguments (i.e. new title). The updateOne() has a filter argument instead of a condition.
 
 * **Question:** This new method will return the _old document_ instead of the new one. What option can you add to your statement to return the new one?
 
-* **Your Answer:**
+* **Your Answer:** {new: true} optional argument
 
 * **Question:** Another field was updated when you ran this command. Which one was it?
 
-* **Your Answer:**
+* **Your Answer:** updated_at
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
   ```
@@ -146,7 +145,7 @@ Once installation is working, try creating and requesting resources. Note that t
   ```
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
-* **Your Answer:**
+* **Your Answer:** add useFindAndModify: false to app.js under mongoose.connect at line 8
 
 ---
 
@@ -158,7 +157,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** At least one of these will throw an error. Which one? How can you get around this issue?
 
-* **Your Answer:** 
+* **Your Answer:**  we can add -_id as in Series.find().select('-_id) even though it's been deleted
 
 ---
 
@@ -170,7 +169,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** You may notice that you can add custom error messages to individual fields failing. Try adding these and take a look at the error message received. How can you make use of those specific messages for each field?
 
-* **Your Answer:**
+* **Your Answer:** you can use try / catch and create error messages curated for each specific error (i.e. no ID found, no title found, etc.)
 
 ---
 
@@ -178,11 +177,11 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Take a look at the response from making a new series with a character. What field was created that you did not have to define?
 
-* **Your Answer:**
+* **Your Answer:** An id field was automatically generated.
 
 * **Question:** With the current routes that we have, how would you upate the name of a character in a series?
 
-* **Your Answer:**
+* **Your Answer:** PUT to modify a series based on its id parameter
 
 ---
 
@@ -193,7 +192,7 @@ Once installation is working, try creating and requesting resources. Note that t
 
 * **Question:** Where did you decide to put this route and why?
 
-* **Your Answer:**
+* **Your Answer:** I put it under series.js due to lack of time.  If I had more time, I would create a new route file named 'series.characters.js' and require the route in app.js.  I would use this structure to build out the rest /:seriesId/characters routes.
 
 ---
 
