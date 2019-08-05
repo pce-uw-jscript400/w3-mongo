@@ -4,7 +4,7 @@ By the end of this lesson, you should be able to connect to a non-relational dat
 
 ## Core Learning Objective
 
-*	Interact with a document database
+*Interact with a document database
 
 ## Sub-Objectives
 
@@ -63,6 +63,7 @@ Once installation is working, try creating and requesting resources. Note that t
 ---
 
 - [ ] Merge the following into your schema:
+
   ```js
   {
     _id: Schema.Types.ObjectId
@@ -84,6 +85,7 @@ Once installation is working, try creating and requesting resources. Note that t
 ---
 
 - [ ] Add the following object as the _second argument_ to the `new Schema()` statement.
+
   ```js
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
@@ -119,7 +121,6 @@ Once installation is working, try creating and requesting resources. Note that t
 - [ ] Update the API so that you retrieve a document by ID.
 
 * **Question:** There are a couple different ways to accomplish this goal. Which method did you choose?
-~~~A
 
 - [ ] Update the API so that you are able to update a document. Use the [Model.updateOne()](https://mongoosejs.com/docs/api.html#model_Model.updateOne) method.
 
@@ -140,9 +141,11 @@ Once installation is working, try creating and requesting resources. Note that t
 * **Your Answer:** updated_at
 
 * **Question:** Take a look at the terminal window running your server. You are likely getting the following deprecation warning:
+
   ```
   DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated. See: https://mongoosejs.com/docs/deprecations.html#-findandmodify-
   ```
+
   Take a look [at this page](https://mongoosejs.com/docs/deprecations#findandmodify) to see how to fix it. Describe the changes that took place.
 
 * **Your Answer:** add useFindAndModify: false to app.js under mongoose.connect at line 8
@@ -186,6 +189,7 @@ Once installation is working, try creating and requesting resources. Note that t
 ---
 
 - [ ] While we can now update [subdocuments](https://mongoosejs.com/docs/subdocs.html), it is difficult to make changes that only relate to a single subdocument. To do so, we should make a new set of routes that relates to characters. Start by creating a `GET ALL` route for characters. The route will look something like the following and will return only the list of characters:
+
   ```
   GET /api/series/:seriesID/characters
   ```
@@ -201,7 +205,6 @@ Spend the rest of class building out the other routes for characters. A few note
 * It's worth reading the [subdocument](https://mongoosejs.com/docs/subdocs.html) documentation in full
 * Take note of the `.id()` method for finding subdocuments by id
 * Note that in order to save subdocuments, you will need to save the parent record; in our case, you should be calling `series.save()`, _not_ `character.save()`
-
 
 If you're interested in going further, I would recommend looking into [references](https://mongoosejs.com/docs/populate.html).
 
